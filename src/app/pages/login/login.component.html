@@ -2,128 +2,44 @@
 
     <div class="flex-grow-1  flex-fill  "> </div>
 
-    <div class="p-2 frame-4_522-577 d-flex flex-column  align-items-center">
-        <span class="text-welcome_522-578">Welcome </span>
-        <div class="frame-7_522-579 ">
+    <div class="m-1 frame-bottom d-flex flex-column  align-items-center">
+        <span class="text-title mb-4">Welcome </span>
+        <div class="mat-col-frame d-flex mx-1 ">
             <div>
-
-
-
-
-                <div class="frame-5_522-580   d-flex   ">
-
-                    <mat-icon class=" " aria-hidden="false" aria-label="Example home icon" fontIcon="email"
+                <div class="frame-input  d-flex   flex-row my-2">
+                    <mat-icon class=" " aria-hidden="false" aria-label="email" fontIcon="email"
                         matIconSuffix="matIconSuffix"></mat-icon>
                     <mat-label class=" " for="emailInput">Email</mat-label>
-
-                    <input id="emailInput" aria-label="Email" matIconSuffix="matIconSuffix">
+                    <input class="mat-input" id="emailInput" aria-label="Email" matIconSuffix="matIconSuffix">
                 </div>
 
-            </div>
-            <div class="frame-9_522-585">
-                <div class="frame-6_522-586">
-                    <div class="frame-8_522-587">
-                        <div class="mask-group_522-588">
-                            <div class="lock-1_522-589">
-                                <img alt="lock"
-                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAQSURBVHgBAQUA+v8AAAAAAAAFAAFkeJU4AAAAAElFTkSuQmCC" />
-                            </div>
-                            <div class="lock-2_522-590">
-                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <rect width="18" height="18" fill="#616161" />
-                                </svg>
-                            </div>
-                        </div>
-                        <span class="text-password_522-591">Password</span>
-                    </div>
-                    <div class="edit---hide_522-592">
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M3.00004 3L15 15M12.375 12.5669C11.3606 13.1134 10.214 13.4999 9.00004 13.4999C6.35205 13.4999 4.0248 11.6609 2.69023 10.3341C2.33795 9.98389 2.16184 9.8088 2.04972 9.46509C1.96977 9.21996 1.96974 8.77992 2.04972 8.5348C2.16187 8.1911 2.33835 8.01559 2.69132 7.66475C3.36399 6.99616 4.28863 6.1977 5.37927 5.57007M14.625 10.9751C14.8748 10.7554 15.1036 10.5393 15.3089 10.3352L15.3111 10.3329C15.6625 9.98357 15.8388 9.80841 15.9507 9.46545C16.0307 9.22033 16.0305 8.78013 15.9505 8.535C15.8385 8.1914 15.6621 8.01581 15.3101 7.66583C13.9755 6.33906 11.648 4.5 9.00004 4.5C8.74692 4.5 8.49672 4.5168 8.25004 4.54836M9.99222 10.125C9.7278 10.3584 9.38046 10.5 9.00004 10.5C8.17161 10.5 7.50004 9.82843 7.50004 9C7.50004 8.59537 7.66025 8.22831 7.9207 7.9585"
-                                stroke="#616161" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </div>
+                <div class="frame-input  d-flex  flex-row my-2 ">
+                    <mat-icon class=" " aria-hidden="false" aria-label="password" fontIcon="password"
+                        matIconSuffix="matIconSuffix"></mat-icon>
+                    <mat-label class=" " for="emailInput">Password</mat-label>
+                    <input class="mat-input" matInput [type]="hide ? 'password' : 'text'">
+                    <button class="mat-input" mat-icon-button matSuffix (click)="hide = !hide"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
                 </div>
-                <span class="text-forget-password-_522-594">Forget Password?</span>
+            </div>
+            <div class="mat-col-frame">
+                <a class="text-forget-password ms-auto ">Forget Password? </a>
             </div>
         </div>
-        <div class="frame-3_522-595">
-            <span class="text-sign-in_522-596">Sign In</span>
+        <div class="mat-col-frame d-flex my-2 ">
+            <button mat-button class=" mat-flat-button mat-primary my-2" (click)="LogIn()"> Signe in </button>
         </div>
-        <div class="group-113_522-597">
-            <div class="frame-10_522-598">
-                <div class="rectangle-6_522-599">
-                    <svg width="160" height="1" viewBox="0 0 160 1" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="160" height="1" fill="#F0F0F0" />
-                    </svg>
-                </div>
-                <span class="text-or_522-600">or</span>
-                <div class="rectangle-5_522-601">
-                    <svg width="160" height="1" viewBox="0 0 160 1" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="160" height="1" fill="#F0F0F0" />
-                    </svg>
-                </div>
+        <div class="mat-col-frame ">
+            <div class="mat-col-frame  ">
+                <mat-divider></mat-divider>
+                <span class="text-title">or</span>
+                <mat-divider></mat-divider>
             </div>
         </div>
-        <div class="group-16_522-602">
-            <div class="mask-group_522-603">
-                <div class="facebook_522-604">
-                    <img alt="Facebook"
-                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAQSURBVHgBAQUA+v8AAAAAAAAFAAFkeJU4AAAAAElFTkSuQmCC" />
-                </div>
-                <div class="facebook_522-605">
-                    <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="41" height="41" fill="url(#paint0_radial_522_605)" />
-                        <defs>
-                            <radialGradient id="paint0_radial_522_605" cx="0" cy="0" r="1"
-                                gradientUnits="userSpaceOnUse"
-                                gradientTransform="translate(20.5 20.5) rotate(90) scale(20.5)">
-                                <stop stop-color="#A7DBF5" />
-                                <stop offset="0.526042" stop-color="#65CCFF" />
-                            </radialGradient>
-                        </defs>
-                    </svg>
-                </div>
-            </div>
-            <div class="mask-group_522-606">
-                <div class="google_522-607">
-                    <img alt="apple"
-                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAQSURBVHgBAQUA+v8AAAAAAAAFAAFkeJU4AAAAAElFTkSuQmCC" />
-                </div>
-                <div class="google_522-608">
-                    <svg width="42" height="41" viewBox="0 0 42 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="42" height="41" fill="url(#paint0_radial_522_608)" />
-                        <defs>
-                            <radialGradient id="paint0_radial_522_608" cx="0" cy="0" r="1"
-                                gradientUnits="userSpaceOnUse"
-                                gradientTransform="translate(21 20.5) rotate(90) scale(20.5 21)">
-                                <stop stop-color="#A7DBF5" />
-                                <stop offset="0.526042" stop-color="#65CCFF" />
-                            </radialGradient>
-                        </defs>
-                    </svg>
-                </div>
-            </div>
-            <div class="mask-group_522-609">
-                <div class="apple-logo_522-610">
-                    <img alt="google"
-                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAQSURBVHgBAQUA+v8AAAAAAAAFAAFkeJU4AAAAAElFTkSuQmCC" />
-                </div>
-                <div class="apple-logo_522-611">
-                    <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="41" height="41" fill="url(#paint0_radial_522_611)" />
-                        <defs>
-                            <radialGradient id="paint0_radial_522_611" cx="0" cy="0" r="1"
-                                gradientUnits="userSpaceOnUse"
-                                gradientTransform="translate(20.5 20.5) rotate(90) scale(20.5)">
-                                <stop stop-color="#A7DBF5" />
-                                <stop offset="0.526042" stop-color="#65CCFF" />
-                            </radialGradient>
-                        </defs>
-                    </svg>
-                </div>
-            </div>
+        <div class="mat-col-frame mb-3">
+            <img class="img-social" src="../../../assets/Media/logins.png" alt="facebook">
         </div>
 
     </div>

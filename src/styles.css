@@ -41,7 +41,6 @@ div.app-background {
 }
 
 .frame-logo {
-
     min-width: 20%;
     max-width: 50%;
     min-height: 20%;
@@ -50,7 +49,7 @@ div.app-background {
     height: 30%;
     position: absolute;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     background-image: url('assets/Media/logo.OrbitalIQ.svg');
     background-size: contain;
     background-repeat: no-repeat;
@@ -75,7 +74,6 @@ div.app-background {
     border-radius: 50px;
     border: 5px solid #ffda6d;
 
-    font-size: xx-large;
     font-family: Poppins;
     letter-spacing: 0%;
     text-decoration: solid;
@@ -85,9 +83,82 @@ div.app-background {
     text-wrap: nowrap;
 }
 
+.mat-input {
+    padding: 5px;
+    background: transparent;
+    border: none;
+    outline: none;
+    margin-left: -50px;
+    margin-right: 10px;
+
+}
+
+.mat-col-frame {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: nowrap;
+    align-items: center;
+    box-sizing: border-box;
+    width: -webkit-fill-available;
+}
+
+.frame-input {
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 12px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    background: #dcf3ff;
+    width: -webkit-fill-available;
+    box-shadow: 0px 2px 3px 0px #0000003f inset;
+}
+
+.text-forget-password {
+    color: #616161;
+    font-size: 12px;
+    font-family: Inter;
+    letter-spacing: 0%;
+    text-decoration: none;
+    font-weight: 600;
+    text-align: left;
+    text-wrap: nowrap;
+    border: 1px solid #ffda6d;
+}
+
 .mat-flat-button.mat-primary {
     background-color: #ffda6d !important;
     /* Example blue color */
     color: #ffffff !important;
 
+}
+
+
+.frame-bottom {
+    padding: 22px 10px 5px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 6px;
+    box-sizing: border-box;
+    border-radius: 32px 32px 0px 0px;
+    background: #ffffff;
+    box-shadow: -1px 0px 2px 0px #0000003f;
+}
+
+.text-title {
+    color: #616161;
+    font-size: 25px;
+    font-family: Poppins;
+    letter-spacing: 0%;
+    text-decoration: none;
+    font-weight: 700;
+    text-align: left;
+    text-wrap: nowrap;
 }

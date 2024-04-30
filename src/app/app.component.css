@@ -13,21 +13,4 @@ div.app-background {
     justify-content: center;
 }
 
-.frame-logo {
-    padding: 10% 10px 15px 10px;
-    width: 30%;
-    height: 30%;
-    z-index: 100;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url('/src/assets/Media/OrbitalIQ.logo.svg');
-
-
-}
-
-.frame-debug {
-    border: 3px solid fuchsia;
-}
  
