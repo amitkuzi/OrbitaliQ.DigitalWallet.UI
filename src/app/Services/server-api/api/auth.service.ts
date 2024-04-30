@@ -11,12 +11,13 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent, HttpParameterCodec, HttpContext 
-        }       from '@angular/common/http';
-import { CustomHttpParameterCodec }                          from '../encoder';
-import { Observable }                                        from 'rxjs';
+import { Inject, Injectable, Optional } from '@angular/core';
+import {
+    HttpClient, HttpHeaders, HttpParams,
+    HttpResponse, HttpEvent, HttpParameterCodec, HttpContext
+} from '@angular/common/http';
+import { CustomHttpParameterCodec } from '../encoder';
+import { Observable } from 'rxjs';
 
 // @ts-ignore
 import { DigitalWalletRegistrationDto } from '../model/digitalWalletRegistrationDto';
@@ -32,22 +33,23 @@ import { UserLoginDto } from '../model/userLoginDto';
 import { UserRegistrationDto } from '../model/userRegistrationDto';
 
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
+import { environment } from '../../../../environments/environment.development';
 
 
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthService {
 
-    protected basePath = 'http://localhost';
+    protected basePath = environment.apiUrl;
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
     public encoder: HttpParameterCodec;
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string|string[], @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string | string[], @Optional() configuration: Configuration) {
         if (configuration) {
             this.configuration = configuration;
         }
@@ -95,15 +97,15 @@ export class AuthService {
 
         if (typeof value === "object") {
             if (Array.isArray(value)) {
-                (value as any[]).forEach( elem => httpParams = this.addToHttpParamsRecursive(httpParams, elem, key));
+                (value as any[]).forEach(elem => httpParams = this.addToHttpParamsRecursive(httpParams, elem, key));
             } else if (value instanceof Date) {
                 if (key != null) {
                     httpParams = httpParams.append(key, (value as Date).toISOString().substring(0, 10));
                 } else {
-                   throw Error("key may not be null if value is Date");
+                    throw Error("key may not be null if value is Date");
                 }
             } else {
-                Object.keys(value).forEach( k => httpParams = this.addToHttpParamsRecursive(
+                Object.keys(value).forEach(k => httpParams = this.addToHttpParamsRecursive(
                     httpParams, value[k], key != null ? `${key}.${k}` : k));
             }
         } else if (key != null) {
@@ -119,10 +121,10 @@ export class AuthService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public applicationAuthForgotPasswordPost(forgotPassword?: ForgotPassword, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public applicationAuthForgotPasswordPost(forgotPassword?: ForgotPassword, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public applicationAuthForgotPasswordPost(forgotPassword?: ForgotPassword, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public applicationAuthForgotPasswordPost(forgotPassword?: ForgotPassword, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public applicationAuthForgotPasswordPost(forgotPassword?: ForgotPassword, observe?: 'body', reportProgress?: boolean, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<any>;
+    public applicationAuthForgotPasswordPost(forgotPassword?: ForgotPassword, observe?: 'response', reportProgress?: boolean, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<HttpResponse<any>>;
+    public applicationAuthForgotPasswordPost(forgotPassword?: ForgotPassword, observe?: 'events', reportProgress?: boolean, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<HttpEvent<any>>;
+    public applicationAuthForgotPasswordPost(forgotPassword?: ForgotPassword, observe: any = 'body', reportProgress: boolean = false, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -197,10 +199,10 @@ export class AuthService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public applicationAuthLoginPost(userLoginDto?: UserLoginDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<LoginResult>;
-    public applicationAuthLoginPost(userLoginDto?: UserLoginDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<LoginResult>>;
-    public applicationAuthLoginPost(userLoginDto?: UserLoginDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<LoginResult>>;
-    public applicationAuthLoginPost(userLoginDto?: UserLoginDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public applicationAuthLoginPost(userLoginDto?: UserLoginDto, observe?: 'body', reportProgress?: boolean, options?: { httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean }): Observable<LoginResult>;
+    public applicationAuthLoginPost(userLoginDto?: UserLoginDto, observe?: 'response', reportProgress?: boolean, options?: { httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean }): Observable<HttpResponse<LoginResult>>;
+    public applicationAuthLoginPost(userLoginDto?: UserLoginDto, observe?: 'events', reportProgress?: boolean, options?: { httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean }): Observable<HttpEvent<LoginResult>>;
+    public applicationAuthLoginPost(userLoginDto?: UserLoginDto, observe: any = 'body', reportProgress: boolean = false, options?: { httpHeaderAccept?: 'text/plain' | 'application/json' | 'text/json', context?: HttpContext, transferCache?: boolean }): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -278,10 +280,10 @@ export class AuthService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public applicationAuthRegisterPost(userRegistrationDto?: UserRegistrationDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public applicationAuthRegisterPost(userRegistrationDto?: UserRegistrationDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public applicationAuthRegisterPost(userRegistrationDto?: UserRegistrationDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public applicationAuthRegisterPost(userRegistrationDto?: UserRegistrationDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public applicationAuthRegisterPost(userRegistrationDto?: UserRegistrationDto, observe?: 'body', reportProgress?: boolean, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<any>;
+    public applicationAuthRegisterPost(userRegistrationDto?: UserRegistrationDto, observe?: 'response', reportProgress?: boolean, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<HttpResponse<any>>;
+    public applicationAuthRegisterPost(userRegistrationDto?: UserRegistrationDto, observe?: 'events', reportProgress?: boolean, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<HttpEvent<any>>;
+    public applicationAuthRegisterPost(userRegistrationDto?: UserRegistrationDto, observe: any = 'body', reportProgress: boolean = false, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -356,10 +358,10 @@ export class AuthService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public applicationAuthResetPasswordPost(resetPassword?: ResetPassword, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public applicationAuthResetPasswordPost(resetPassword?: ResetPassword, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public applicationAuthResetPasswordPost(resetPassword?: ResetPassword, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public applicationAuthResetPasswordPost(resetPassword?: ResetPassword, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public applicationAuthResetPasswordPost(resetPassword?: ResetPassword, observe?: 'body', reportProgress?: boolean, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<any>;
+    public applicationAuthResetPasswordPost(resetPassword?: ResetPassword, observe?: 'response', reportProgress?: boolean, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<HttpResponse<any>>;
+    public applicationAuthResetPasswordPost(resetPassword?: ResetPassword, observe?: 'events', reportProgress?: boolean, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<HttpEvent<any>>;
+    public applicationAuthResetPasswordPost(resetPassword?: ResetPassword, observe: any = 'body', reportProgress: boolean = false, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -435,10 +437,10 @@ export class AuthService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public applicationAuthUploadUserImageUserIdPut(userId: string, file?: Blob, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public applicationAuthUploadUserImageUserIdPut(userId: string, file?: Blob, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public applicationAuthUploadUserImageUserIdPut(userId: string, file?: Blob, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public applicationAuthUploadUserImageUserIdPut(userId: string, file?: Blob, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public applicationAuthUploadUserImageUserIdPut(userId: string, file?: Blob, observe?: 'body', reportProgress?: boolean, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<any>;
+    public applicationAuthUploadUserImageUserIdPut(userId: string, file?: Blob, observe?: 'response', reportProgress?: boolean, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<HttpResponse<any>>;
+    public applicationAuthUploadUserImageUserIdPut(userId: string, file?: Blob, observe?: 'events', reportProgress?: boolean, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<HttpEvent<any>>;
+    public applicationAuthUploadUserImageUserIdPut(userId: string, file?: Blob, observe: any = 'body', reportProgress: boolean = false, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<any> {
         if (userId === null || userId === undefined) {
             throw new Error('Required parameter userId was null or undefined when calling applicationAuthUploadUserImageUserIdPut.');
         }
@@ -489,7 +491,7 @@ export class AuthService {
         if (localVarUseForm) {
             localVarFormParams = new FormData();
         } else {
-            localVarFormParams = new HttpParams({encoder: this.encoder});
+            localVarFormParams = new HttpParams({ encoder: this.encoder });
         }
 
         if (file !== undefined) {
@@ -507,7 +509,7 @@ export class AuthService {
             }
         }
 
-        let localVarPath = `/application/Auth/uploadUserImage/${this.configuration.encodeParam({name: "userId", value: userId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/application/Auth/uploadUserImage/${this.configuration.encodeParam({ name: "userId", value: userId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined })}`;
         return this.httpClient.request<any>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -526,10 +528,10 @@ export class AuthService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public applicationAuthVerGet(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public applicationAuthVerGet(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public applicationAuthVerGet(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public applicationAuthVerGet(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public applicationAuthVerGet(observe?: 'body', reportProgress?: boolean, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<any>;
+    public applicationAuthVerGet(observe?: 'response', reportProgress?: boolean, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<HttpResponse<any>>;
+    public applicationAuthVerGet(observe?: 'events', reportProgress?: boolean, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<HttpEvent<any>>;
+    public applicationAuthVerGet(observe: any = 'body', reportProgress: boolean = false, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -592,10 +594,10 @@ export class AuthService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public applicationAuthWalletRegisterPost(digitalWalletRegistrationDto?: DigitalWalletRegistrationDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public applicationAuthWalletRegisterPost(digitalWalletRegistrationDto?: DigitalWalletRegistrationDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public applicationAuthWalletRegisterPost(digitalWalletRegistrationDto?: DigitalWalletRegistrationDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public applicationAuthWalletRegisterPost(digitalWalletRegistrationDto?: DigitalWalletRegistrationDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public applicationAuthWalletRegisterPost(digitalWalletRegistrationDto?: DigitalWalletRegistrationDto, observe?: 'body', reportProgress?: boolean, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<any>;
+    public applicationAuthWalletRegisterPost(digitalWalletRegistrationDto?: DigitalWalletRegistrationDto, observe?: 'response', reportProgress?: boolean, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<HttpResponse<any>>;
+    public applicationAuthWalletRegisterPost(digitalWalletRegistrationDto?: DigitalWalletRegistrationDto, observe?: 'events', reportProgress?: boolean, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<HttpEvent<any>>;
+    public applicationAuthWalletRegisterPost(digitalWalletRegistrationDto?: DigitalWalletRegistrationDto, observe: any = 'body', reportProgress: boolean = false, options?: { httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean }): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
