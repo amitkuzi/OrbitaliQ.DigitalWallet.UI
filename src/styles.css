@@ -150,6 +150,8 @@ div.app-background {
     border-radius: 32px 32px 0px 0px;
     background: #ffffff;
     box-shadow: -1px 0px 2px 0px #0000003f;
+    width: -webkit-fill-available;
+    min-height: 20%;
 }
 
 .text-title {

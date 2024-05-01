@@ -11,17 +11,8 @@ import { AuthServiceService } from '../../Services/auth-service.service';
   templateUrl: './welcome-page.component.html',
   styleUrl: './welcome-page.component.css'
 })
-export class WelcomePageComponent implements OnInit {
+export class WelcomePageComponent {
 
-  constructor(private authService: AuthServiceService, private router: Router) {
-    console.log('WelcomePageComponent constructor IsAuthenticated: ', this.authService.IsAuthenticated);
-  }
 
-  ngOnInit(): void {
-    if (this.authService.IsAuthenticated) {
-      console.log('WelcomePageComponent navigating to /homr ', this.authService.IsAuthenticated);
-      this.router.navigate(['/home'], { replaceUrl: true });
-    }
-  }
 }
 
