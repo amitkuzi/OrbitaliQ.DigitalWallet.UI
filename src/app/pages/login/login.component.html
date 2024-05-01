@@ -10,14 +10,15 @@
                     <mat-icon class=" " aria-hidden="false" aria-label="email" fontIcon="email"
                         matIconSuffix="matIconSuffix"></mat-icon>
                     <mat-label class=" " for="emailInput">Email</mat-label>
-                    <input class="mat-input" id="emailInput" aria-label="Email" matIconSuffix="matIconSuffix">
+                    <input class="mat-input" id="emailInput" aria-label="Email" [(ngModel)]="userEmail"
+                        matIconSuffix="matIconSuffix">
                 </div>
 
                 <div class="frame-input  d-flex  flex-row my-2 ">
                     <mat-icon class=" " aria-hidden="false" aria-label="password" fontIcon="password"
                         matIconSuffix="matIconSuffix"></mat-icon>
                     <mat-label class=" " for="emailInput">Password</mat-label>
-                    <input class="mat-input" matInput [type]="hide ? 'password' : 'text'">
+                    <input class="mat-input" matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="Password">
                     <button class="mat-input" mat-icon-button matSuffix (click)="hide = !hide"
                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>

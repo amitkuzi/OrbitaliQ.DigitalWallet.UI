@@ -36,7 +36,9 @@ export class AuthServiceService {
 
   public Login(userName: string, password: string): Promise<boolean> {
     const success = new BehaviorSubject<boolean>(false);
+    console.log('Login start  ', { userName: userName, password: password });
     this.authService.applicationAuthLoginPost({ userName: userName, password: password }).subscribe((result) => {
+      console.log('applicationAuthLoginPost ', result);
       if (!result) {
         console.error('Login fail : Unknown error');
         success.next(false);
@@ -55,6 +57,4 @@ export class AuthServiceService {
     });
     return firstValueFrom(success);
   }
-
-
 }
