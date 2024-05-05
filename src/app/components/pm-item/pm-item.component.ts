@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './pm-item.component.css'
 })
 export class PmItemComponent {
-
+  constructor() { }
+  
 }
