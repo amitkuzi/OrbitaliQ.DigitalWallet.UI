@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "genAPIService": "npm install -g openapi-generator @types/typescript && openapi-generator generate -i http://localhost:5208/swagger/v1/swagger.json -g typescript-angular -o src/app/services/server-api --additional-properties ngVersion=17.3.6 --additional-properties ngModuleName=app --additional-properties ngInjectable=true --additional-properties ngUseInjectableDecorator=true --additional-properties ngUseSingleRequestParameter=true --additional-properties ngUseObservable=true --additional-properties ngUseHttpClientService=true --additional-properties ngUseInjectableService=true"
   },
   "private": true,
   "dependencies": {
