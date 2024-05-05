@@ -6,13 +6,16 @@ import { RegisterComponent } from './pages/register/register.component';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { AuthServiceService } from './Services/auth-service.service';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [RouterModule, RouterOutlet, WelcomePageComponent, LoginComponent, RegisterComponent, FormsModule, MatInputModule]
+  imports: [RouterModule, MatIconModule, MatListModule, RouterOutlet, WelcomePageComponent, LoginComponent, RegisterComponent, FormsModule, MatInputModule, MatSidenavModule]
 })
 export class AppComponent implements OnInit {
   title = 'OrbitaliQ.DigitalWallet.UI';
