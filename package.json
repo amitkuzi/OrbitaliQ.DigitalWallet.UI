@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "genAPIService": "npm install -g openapi-generator @types/typescript && openapi-generator generate -i http://localhost:5208/swagger/v1/swagger.json -g typescript-angular -o src/app/services/server-api --additional-properties ngVersion=17.3.6 --additional-properties ngModuleName=app --additional-properties ngInjectable=true --additional-properties ngUseInjectableDecorator=true --additional-properties ngUseSingleRequestParameter=true --additional-properties ngUseObservable=true --additional-properties ngUseHttpClientService=true --additional-properties ngUseInjectableService=true"
+    "genAPIService": "curl  -# -o src/app/services/server-api/.swagger.json http://localhost:5208/swagger/v1/swagger.json && openapi-generator-cli generate -i src/app/services/server-api/.swagger.json -g typescript-angular -o src/app/services/server-api"
   },
   "private": true,
   "dependencies": {
@@ -40,6 +40,7 @@
     "@types/jasmine": "~5.1.0",
     "@typescript-eslint/eslint-plugin": "7.2.0",
     "@typescript-eslint/parser": "7.2.0",
+    "@openapitools/openapi-generator-cli": "^2.13.4",
     "eslint": "^8.57.0",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
