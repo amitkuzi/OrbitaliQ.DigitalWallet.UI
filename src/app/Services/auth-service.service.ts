@@ -1,7 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
-import { AuthService } from './server-api';
-import { UserLoginDto } from './server-api/model/userLoginDto';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
+import { AuthService } from './server-api/api/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +31,12 @@ export class AuthServiceService {
 
   public get IsAuthenticated(): boolean {
     return !!this.Bearer;
+  }
+
+  public Logout(): Promise<boolean> {
+    localStorage.removeItem(this._bearerKey);
+    localStorage.removeItem(this._userIdKey);
+    return Promise.resolve(true);
   }
 
   public Login(userName: string, password: string): Promise<boolean> {
