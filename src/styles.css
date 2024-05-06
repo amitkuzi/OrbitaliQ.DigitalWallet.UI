@@ -4,6 +4,7 @@
 html,
 body {
     height: 100%;
+    font-family: Roboto, Arial, sans-serif;
 }
 
 body {
@@ -45,6 +46,7 @@ div.app-background {
     max-width: 50%;
     min-height: 20%;
     max-height: 50%;
+    top: 20%;
     width: 30%;
     height: 30%;
     position: absolute;
