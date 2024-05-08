@@ -2,7 +2,7 @@
     <header>
         <span>Last Activities</span>
     </header>
-    <div #scrollContainer class="scroll-container">
+    <div *ngIf="(trasactionList$ | async)?.length" #scrollContainer class="scroll-container">
         <div *ngFor="let item of trasactionList$ | async ; let i = index ; else loaded">
             <div>
                 <div class="trasaction-card">
@@ -27,11 +27,8 @@
             </div>
         </div>
     </div>
-
-    <ng-template #loaded>
-        <div class="card-size-intr  text-center  row">
-            <div class="align-self-center"> loading <mat-progress-bar mode="buffer"></mat-progress-bar>
-            </div>
+    <div *ngIf="!((trasactionList$ | async)?.length ?? true)" class="card-size-intr  text-center  row ">
+        <div class="align-self-center"> loading <mat-progress-bar mode="buffer"></mat-progress-bar>
         </div>
-    </ng-template>
+    </div>
 </div>
