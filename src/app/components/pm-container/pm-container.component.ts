@@ -5,6 +5,7 @@ import { BehaviorSubject, max, min } from 'rxjs';
 import { PmItemComponent } from "../pm-item/pm-item.component";
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-pm-container',
@@ -14,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [
     CommonModule,
     MatIconModule,
+    MatProgressBarModule,
     PmItemComponent]
 })
 export class PmContainerComponent implements OnInit {
@@ -35,7 +37,7 @@ export class PmContainerComponent implements OnInit {
   constructor(private dashboard: DashboardService) {
     InitServiceConfig(dashboard.configuration);
 
-    const myCarouselElement = document.querySelector('#myCarousel')
+
 
   }
 

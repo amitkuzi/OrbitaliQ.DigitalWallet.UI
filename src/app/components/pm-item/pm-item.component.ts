@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { PaymentMethod } from '../../Services/server-api';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-pm-item',
   standalone: true,
-  imports: [],
+  imports: [MatProgressBarModule, CommonModule],
   templateUrl: './pm-item.component.html',
   styleUrl: './pm-item.component.css'
 })

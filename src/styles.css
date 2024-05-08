@@ -192,6 +192,7 @@ div.app-background {
     box-shadow: -1px 0px 2px 0px #0000003f;
     width: -webkit-fill-available;
     min-height: 20%;
+    max-height: 60%;
 }
 
 .text-title {

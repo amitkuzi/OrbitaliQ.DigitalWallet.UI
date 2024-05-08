@@ -1,0 +1,16 @@
+.scroll-container {
+    height: 300px;
+    overflow-y: auto;
+
+    padding: 10px;
+    width: 100%;
+}
+
+.trasaction-card {
+    width: 100%;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 1px 0px 2px 0px #443e0c48;
+    border-radius: 10px;
+    background-color: #FFEAAF;
+}
