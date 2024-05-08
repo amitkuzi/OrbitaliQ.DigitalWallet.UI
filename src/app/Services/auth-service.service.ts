@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Subject, firstValueFrom } from 'rxjs';
-import { appGlobals } from '../app.component';
+import { InitServiceConfig, appGlobals } from '../app.component';
 import { environment } from '../../environments/environment';
 import { FullUserDto, AuthService, SettingService } from './server-api';
 
@@ -18,19 +18,13 @@ export class AuthServiceService {
     private settingService: SettingService,
   ) {
 
-    this.authService.configuration.credentials[appGlobals._bearerKey] = () => this.Bearer;
-    this.authService.configuration.basePath = environment.apiUrl;
-    this.settingService.configuration.credentials[appGlobals._bearerKey] = () => this.Bearer;
-    this.settingService.configuration.basePath = environment.apiUrl;
+    InitServiceConfig(this.authService.configuration);
+    InitServiceConfig(this.settingService.configuration);
     this.Bearer$.next(this.Bearer);
-
     this.Bearer$.subscribe((value) => {
-      console.log('AuthServiceService Bearer|changed IsAuthenticated: ', this.IsAuthenticated);
       if (this.IsAuthenticated) {
         this.settingService.applicationSettingUserDetailsUserIdGet(this.UserID).subscribe((result) => {
-
           this.UserDetails$.next(result);
-          console.log(' 111 applicationAuthUserImageUrlUserIdGet ');
           this.authService.applicationAuthUserImageUrlUserIdGet(this.UserID).subscribe((result) => {
             if (typeof result === 'string') {
               this.UserImageUrl$.next(result);
@@ -38,14 +32,9 @@ export class AuthServiceService {
           });
         });
         this.Authenticated$.next(this.IsAuthenticated);
-
       }
-
-
     });
-
   }
-
 
   public set Bearer(value: string) {
     localStorage.setItem(appGlobals._bearerKey, value);

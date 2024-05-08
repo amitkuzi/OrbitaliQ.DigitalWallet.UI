@@ -2,6 +2,13 @@
     left: 0px;
     width: 350px;
     height: 200px;
+    position: relative;
+}
+
+.card-size-intr {
+    left: 0px;
+    width: 350px;
+    height: 200px;
     position: absolute;
 }
 

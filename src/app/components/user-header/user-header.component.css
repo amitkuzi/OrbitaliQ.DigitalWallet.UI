@@ -6,8 +6,8 @@
 .DropDown {
     position: absolute;
     border-radius: 6px;
-    background-color: #312c2c31;
+    background-color: #a89a1e;
     margin: 5px;
     right: 10px;
-
+    box-shadow: -1px 0px 2px 0px #443e0c48;
 }

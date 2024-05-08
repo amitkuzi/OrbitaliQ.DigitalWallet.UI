@@ -1,7 +1,7 @@
-<div class="card-size">
+<div class="card-size  ">
 
-    <div class="card-size">
-        <div class="card-size">
+    <div class="card-size-intr">
+        <div class="card-size-intr">
             <div class="rectangle-19_522-887">
                 <svg width="351" height="200" viewBox="0 0 351 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="0.494873" width="350" height="200" rx="32" fill="#B276FF" />
@@ -9,8 +9,8 @@
             </div>
 
         </div>
-        <div class="card-size ">
-            <svg width="166" height="68" viewBox="0 0 166 68" fill="none" class=" sub-loc"
+        <div class="card-size-intr ">
+            <svg width="166" height="68" viewBox="0 0 166 68" fill="none" class=" sub-loc "
                 xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
                     d="M165.246 0C150.015 39.8634 112.99 67.9997 69.7327 67.9997C42.8303 67.9997 18.3383 57.1171 0.000213623 39.2991C15.0641 48.4078 32.5206 53.6154 51.1306 53.6154C88.9739 53.6154 122.047 32.0813 139.932 0H165.246Z"
@@ -24,24 +24,31 @@
                 </defs>
             </svg>
         </div>
-    </div>
-    <div class="card-size">
-        <svg width="42" height="25" class=" sub2-loc" viewBox="0 0 42 25" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="13.2331" cy="12.5" rx="12.8442" ry="12" fill="white" fill-opacity="0.39" />
-            <ellipse cx="28.3656" cy="12.5" rx="12.8442" ry="12" fill="white" fill-opacity="0.52" />
-        </svg>
-    </div>
-        <div class="card-size  ">
-            <div class="col p-3 frame-debug">
-                <h3>{{this.pmItem.value?.cardHolderName}}</h3>
+
+        <div class="card-size-intr ">
+            <svg width="42" height="25" class=" sub2-loc" viewBox="0 0 42 25" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="13.2331" cy="12.5" rx="12.8442" ry="12" fill="white" fill-opacity="0.39" />
+                <ellipse cx="28.3656" cy="12.5" rx="12.8442" ry="12" fill="white" fill-opacity="0.52" />
+            </svg>
+        </div>
+        <div class="card-size-intr  ">
+            <div class="row px-4 py-3 ">
+                <span>{{this.pmItem?.cardHolderName}}</span>
             </div>
-            <div class="col p-5 frame-debug">
-                <h3>{{this.pmItem.value?.cardNumber}}</h3>
+            <div class="row  px-4 py-4">
+                <h4>{{this.pmItem?.cardNumber}}</h4>
             </div>
-            <div class="col p-3 frame-debug">
-                <h3>{{this.pmItem.value?.cardType}}</h3>
+            <div class="row px-5 py-3 ">
+                <div class="  ">
+                    <span>{{this.pmItem?.cardType}}</span>
+                    <span class="p-3"></span>
+                    <span>{{this.pmItem?.cardBrand}}</span>
+                    <span class="p-3"></span>
+                    <span>{{this.pmItem?.cardExpire}}</span>
+                </div>
+
             </div>
         </div>
+    </div>
 </div>
-Exported Components:

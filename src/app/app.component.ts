@@ -15,6 +15,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { UserHeaderComponent } from "./components/user-header/user-header.component";
 import { CommonModule } from '@angular/common';
 import { BehaviorSubject, Observable, of } from 'rxjs';
+import { Configuration } from './Services/server-api';
 
 @Component({
   selector: 'app-root',
@@ -70,4 +71,12 @@ export class AppComponent implements OnInit {
 export const appGlobals = {
   _bearerKey: 'Bearer',
   _userIdKey: 'userId',
+}
+
+export function GlobalGetUserId(): string { return localStorage.getItem(appGlobals._userIdKey) || ''; }
+
+export function InitServiceConfig(conf: Configuration): Configuration {
+  conf.credentials[appGlobals._bearerKey] = () => localStorage.getItem(appGlobals._bearerKey) || '';
+  conf.basePath = environment.apiUrl;
+  return conf
 }

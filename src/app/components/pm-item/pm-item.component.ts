@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { PaymentMethod } from '../../Services/server-api';
 
@@ -12,9 +12,9 @@ import { PaymentMethod } from '../../Services/server-api';
 export class PmItemComponent {
   constructor() { }
 
-  pmItem: BehaviorSubject<PaymentMethod | undefined> = new BehaviorSubject<PaymentMethod | undefined>(undefined);
+  @Input() public pmItem: PaymentMethod | undefined | null = undefined;
 
   public get CardNumber(): string {
-    return this.pmItem.value?.cardNumber ?? '';
+    return this.pmItem?.cardNumber ?? '';
   }
 }

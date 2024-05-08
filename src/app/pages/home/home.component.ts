@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { NavigationBarComponent } from "../../components/navigation-bar/navigation-bar.component";
 import { PmItemComponent } from "../../components/pm-item/pm-item.component";
+import { PmContainerComponent } from "../../components/pm-container/pm-container.component";
 
 @Component({
     selector: 'app-home',
     standalone: true,
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
-    imports: [NavigationBarComponent, PmItemComponent]
+    imports: [NavigationBarComponent, PmItemComponent, PmContainerComponent]
 })
 export class HomeComponent {
 
