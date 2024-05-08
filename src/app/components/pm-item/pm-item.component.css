@@ -1,0 +1,17 @@
+.card-size {
+    left: 0px;
+    width: 350px;
+    height: 200px;
+    position: absolute;
+}
+
+.sub-loc {
+    left: 30%;
+    position: absolute;
+}
+
+.sub2-loc {
+    left: 75%;
+    top: 25%;
+    position: absolute;
+}
