@@ -1,1 +1,20 @@
-<p>user-header works!</p>
+<div class=" row  align-items-center container ">
+
+    <div class="d-flex align-items-center ">
+        <div class="   col-10 ">
+            <span class="user-name ">{{UserHeader$| async}}</span>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-1 ">
+            <button mat-fab (click)="this.hideDropDown()" class="">
+                <img [src]="UserImageUrl" alt="A" class="logo ">
+            </button>
+
+            <div class="DropDown " color="primary" [hidden]="hiddenDropDown">
+                <mat-list-item>
+                    <button mat-button (click)="Logout()">Logout</button>
+                </mat-list-item>
+            </div>
+        </div>
+    </div>
+</div>

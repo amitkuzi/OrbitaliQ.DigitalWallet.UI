@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "genAPIService": "curl  -# -o src/app/services/server-api/.swagger.json http://localhost:5208/swagger/v1/swagger.json && openapi-generator-cli generate -i src/app/services/server-api/.swagger.json -g typescript-angular -o src/app/services/server-api"
+    "genAPIService": "curl  -# -o src/app/services/server-api/.swagger.json http://localhost:5200/swagger/v1/swagger.json && openapi-generator-cli generate -i src/app/services/server-api/.swagger.json -g typescript-angular -o src/app/services/server-api"
   },
   "private": true,
   "dependencies": {

@@ -1,0 +1,13 @@
+.logo {
+    width: 20px;
+    height: 30px;
+}
+
+.DropDown {
+    position: absolute;
+    border-radius: 6px;
+    background-color: #312c2c31;
+    margin: 5px;
+    right: 10px;
+
+}

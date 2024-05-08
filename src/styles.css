@@ -26,6 +26,40 @@ body {
 
 }
 
+.page-canvas {
+    position: absolute;
+    top: 15%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flow-root;
+    justify-content: center;
+    align-items: center;
+    z-index: 300;
+
+}
+
+.logo-small {
+    width: 20px;
+    height: 30px;
+}
+
+.main-header {
+    width: -webkit-fill-available;
+    height: 15%;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+}
+
+.main-content {
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
 div.app-background {
     background: linear-gradient(to right, #BFE9FE, #D5ECF7);
     display: flex;

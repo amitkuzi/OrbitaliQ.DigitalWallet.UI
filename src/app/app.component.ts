@@ -6,13 +6,15 @@ import { RegisterComponent } from './pages/register/register.component';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { AuthServiceService } from './Services/auth-service.service';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { Configuration } from './Services/server-api';
 import { environment } from '../environments/environment.development';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { UserHeaderComponent } from "./components/user-header/user-header.component";
+import { CommonModule } from '@angular/common';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -28,12 +30,19 @@ import { environment } from '../environments/environment.development';
     LoginComponent,
     RegisterComponent,
     FormsModule,
+    MatToolbarModule,
     MatInputModule,
     MatSidenavModule,
-    MatButtonModule]
+    MatButtonModule,
+    UserHeaderComponent,
+    CommonModule
+  ]
 })
 export class AppComponent implements OnInit {
   title = `OrbitaliQ.DigitalWallet.UI ${environment.production ? 'Production' : 'Development'}`;
+
+  IsAuthenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+
   constructor(
     private authService: AuthServiceService,
     private router: Router) {
@@ -41,6 +50,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authService.Bearer$.subscribe((value) => {
+      console.log('222 AppComponent Bearer|changed IsAuthenticated: ', this.authService.IsAuthenticated);
+      this.IsAuthenticated$.next(this.authService.IsAuthenticated);
+    });
+
     if (this.authService.IsAuthenticated) {
       console.log('WelcomePageComponent navigating to /home ', this.authService.IsAuthenticated);
       this.router.navigate(['/home'], { replaceUrl: true });

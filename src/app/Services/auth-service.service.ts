@@ -1,15 +1,17 @@
 import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Subject, firstValueFrom } from 'rxjs';
-import { AuthService } from './server-api/api/auth.service';
-import { SettingService } from './server-api/api/setting.service';
-import { Configuration } from './server-api';
 import { appGlobals } from '../app.component';
 import { environment } from '../../environments/environment';
+import { FullUserDto, AuthService, SettingService } from './server-api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
+  public Bearer$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  public Authenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public UserDetails$: BehaviorSubject<FullUserDto | undefined> = new BehaviorSubject<FullUserDto | undefined>(undefined);
+  UserImageUrl$: BehaviorSubject<string | undefined> = new BehaviorSubject<string | undefined>(undefined);
 
   constructor(
     private authService: AuthService,
@@ -26,15 +28,24 @@ export class AuthServiceService {
       console.log('AuthServiceService Bearer|changed IsAuthenticated: ', this.IsAuthenticated);
       if (this.IsAuthenticated) {
         this.settingService.applicationSettingUserDetailsUserIdGet(this.UserID).subscribe((result) => {
-          console.log('applicationSettingUserDetailsUserIdGet ', result);
+
+          this.UserDetails$.next(result);
+          console.log(' 111 applicationAuthUserImageUrlUserIdGet ');
+          this.authService.applicationAuthUserImageUrlUserIdGet(this.UserID).subscribe((result) => {
+            if (typeof result === 'string') {
+              this.UserImageUrl$.next(result);
+            }
+          });
         });
+        this.Authenticated$.next(this.IsAuthenticated);
+
       }
 
 
     });
 
   }
-  public Bearer$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
 
   public set Bearer(value: string) {
     localStorage.setItem(appGlobals._bearerKey, value);

@@ -1,16 +1,67 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthServiceService } from '../../Services/auth-service.service';
+import { BehaviorSubject } from 'rxjs';
+import { FullUserDto } from '../../Services/server-api';
+import { MatListModule } from '@angular/material/list';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-user-header',
   standalone: true,
-  imports: [],
+  imports: [
+    CommonModule,
+    MatSidenavModule,
+    MatListModule,
+    MatButtonModule
+  ],
   templateUrl: './user-header.component.html',
   styleUrl: './user-header.component.css'
 })
 export class UserHeaderComponent {
+
+  hideDropDown() {
+    this.hiddenDropDown = !this.hiddenDropDown
+    console.log('hiddenDropDown: ', this.hiddenDropDown);
+  }
+
+  hiddenDropDown: boolean = true;
+
   constructor(private authService: AuthServiceService, private router: Router) {
     console.log('LoginComponent constructor called IsAuthenticated: ', this.authService.IsAuthenticated);
+    this.authService.UserDetails$.subscribe((user) => {
+      console.log('UserHeaderComponent UserHeader: ', user);
+      this.UserHeader$.next(user ? `Welcome ${user.firstName} ${user.lastName}` : 'UserHeader');
+    });
   }
+
+  UserHeader$: BehaviorSubject<string> = new BehaviorSubject<string>('UserHeader');
+
+  public get IsAuthenticated(): boolean {
+    return this.authService.IsAuthenticated;
+  }
+
+  public get Authenticated$(): BehaviorSubject<boolean> {
+    return this.authService.Authenticated$;
+  }
+
+  public Logout(): void {
+    this.authService.Logout().then((result) => {
+      console.log('Logout result: ', result);
+      this.router.navigate(['/']);
+    });
+  }
+
+  public get UserDetails(): BehaviorSubject<FullUserDto | undefined> {
+    return this.authService.UserDetails$;
+  }
+
+
+
+  public get UserImageUrl(): string {
+    return this.authService.UserImageUrl$.value ?? '';
+  }
+
 }

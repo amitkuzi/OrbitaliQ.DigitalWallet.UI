@@ -7,15 +7,20 @@
 <!-- * * * * * * * to get started with your project! * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
-<div>
-  <!-- <div class=" mt-3">
-    <button mat-icon-button (click)="sidenav.toggle()">
-      <mat-icon>menu</mat-icon>
-    </button>
-  </div> -->
+<div class="main-canvas container   ">
+  <div class="main-header ">
+    <mat-toolbar color="primary " class=" ">
+      <div class="col-1 ">
+        <img src="../../../assets/Media/Logo.OrbitaliQ.png" alt="logo" class="logo-small ">
+      </div>
+      <div class="col">
+        <app-user-header *ngIf="IsAuthenticated$ | async"></app-user-header>
+      </div>
 
+    </mat-toolbar>
+  </div>
+  <div class=" row-11 main-Content ">
+    <router-outlet></router-outlet>
+  </div>
 
- 
-
-<router-outlet></router-outlet>
 </div>
