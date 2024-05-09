@@ -2,3 +2,40 @@
     width: 20px;
     height: 30px;
 }
+
+.menu-container-background {
+    background-image: url('../../../assets/Media/navBack.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-clip: border-box;
+    backface-visibility: visible;
+}
+
+.menu-container {
+display: flex;
+flex-direction: row;
+    justify-content: space-between;
+    width: 370px;
+    height: 120px;
+    align-items: center;
+    padding: 10px;
+}
+
+.manu-nav-container {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+ 
+}
+
+.mid.manu-nav-container {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+ 
+}
