@@ -8,7 +8,7 @@ import { SettingPageComponent } from './pages/setting-page/setting-page.componen
 import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+
     { path: 'welcome', component: WelcomePageComponent },
     { path: 'home', component: HomeComponent },
     { path: 'wallet', component: WalletPageComponent },
@@ -16,5 +16,6 @@ export const routes: Routes = [
     { path: 'setting', component: SettingPageComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
+    { path: '', redirectTo: 'welcome', pathMatch: 'full' },
     { path: '**', redirectTo: 'welcome', }
 ];
