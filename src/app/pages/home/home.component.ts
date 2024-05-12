@@ -12,9 +12,7 @@ import { TransListComponent } from "../../components/trans-list/trans-list.compo
     imports: [NavigationBarComponent, PmItemComponent, PmContainerComponent, TransListComponent]
 })
 export class HomeComponent {
-public onadd () {
-    console.log('onadd event: ' );
-}
+ 
  
 
 

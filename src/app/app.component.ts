@@ -57,11 +57,11 @@ export class AppComponent implements OnInit {
     });
 
     if (this.authService.IsAuthenticated) {
-      console.log('WelcomePageComponent navigating to /home ', this.authService.IsAuthenticated);
+      console.log('222 WelcomePageComponent navigating to /home ', this.authService.IsAuthenticated);
       this.router.navigate(['/home'], { replaceUrl: true });
     }
     else {
-      console.log('WelcomePageComponent navigating to / ', this.authService.IsAuthenticated);
+      console.log('222 WelcomePageComponent navigating to / ', this.authService.IsAuthenticated);
       this.router.navigate(['/'], { replaceUrl: true });
     }
   }
