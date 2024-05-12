@@ -7,6 +7,7 @@
             <app-trans-list></app-trans-list>
         </div>
         <div class="  ">
-            <app-navigation-bar (onAddEvent)="handleCustomEvent($event)"></app-navigation-bar>
+            <app-navigation-bar (onAddEvent)="onadd()" [disableAddButton]="true"></app-navigation-bar>
+
         </div>
     </div>

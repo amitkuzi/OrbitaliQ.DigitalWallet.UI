@@ -8,6 +8,9 @@ export const routes: Routes = [
     { path: '', redirectTo: 'welcome', pathMatch: 'full' },
     { path: 'welcome', component: WelcomePageComponent },
     { path: 'home', component: HomeComponent },
+    { path: 'wallet', component: RegisterComponent },
+    { path: 'Payment', component: RegisterComponent },
+    { path: 'setting', component: RegisterComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: '**', redirectTo: 'welcome', }
