@@ -1,16 +1,12 @@
-<div class="page-canvas   ">
-    <div class="main-header"></div>
-    <div class="main-content  ">
-        <div class="">
-            <app-pm-container> </app-pm-container>
-        </div>
-
+<div class="page-canvas  ">
+    <div class="main-content ">
+        <app-pm-container> </app-pm-container>
     </div>
-    <div class="row-2 frame-bottom  ">
-        <div class="m-4 container ">
+    <div class=" frame-bottom   ">
+        <div class="  container ">
             <app-trans-list></app-trans-list>
         </div>
-        <div class="p-2">
-            <app-navigation-bar></app-navigation-bar>
+        <div class="  ">
+            <app-navigation-bar (onAddEvent)="handleCustomEvent($event)"></app-navigation-bar>
         </div>
     </div>

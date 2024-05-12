@@ -12,5 +12,13 @@ import { TransListComponent } from "../../components/trans-list/trans-list.compo
     imports: [NavigationBarComponent, PmItemComponent, PmContainerComponent, TransListComponent]
 })
 export class HomeComponent {
+    
+handleCustomEvent($event: Event) {
+    console.log('Method not implemented.');
+}
+onadd() {
+    console.log('Add -  Event');
+}
+ 
 
 }

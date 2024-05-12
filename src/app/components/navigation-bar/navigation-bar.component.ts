@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,8 +12,12 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './navigation-bar.component.css'
 })
 export class NavigationBarComponent {
-  hideDropDown() {
-    throw new Error('Method not implemented.');
+   public onAddEvent: EventEmitter<void> = new EventEmitter<void>();
+  
+  AddEvent() {
+    this.onAddEvent.emit();
+    console.log('onAddEvent.emit();');
   }
+  
 
 }

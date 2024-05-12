@@ -29,7 +29,7 @@ body {
 }
 
 .page-canvas {
-    position: absolute;
+    
     top: 15%;
     left: 0;
     bottom: 0px;
@@ -48,15 +48,15 @@ body {
 
 .main-header {
     width: -webkit-fill-available;
-    height: 15%;
     left: 0px;
     right: 0px;
     top: 0px;
 }
 
 .main-content {
+    position: relative;
     width: -webkit-fill-available;
-   top: 0;
+   top:0;
     left: 0;
     right: 0;
     bottom: 0;

@@ -3,7 +3,7 @@
         <span>Last Activities</span>
     </header>
     <div *ngIf="(trasactionList$ | async)?.length" #scrollContainer class="scroll-container">
-        <div *ngFor="let item of trasactionList$ | async ; let i = index ; else loaded">
+        <div *ngFor="let item of trasactionList$ | async ">
             <div>
                 <div class="trasaction-card">
                     <div class="container text-center row p-1 m-2 align-items-center">
