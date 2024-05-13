@@ -6,15 +6,17 @@
         </div>
         <div class="col-1"></div>
         <div class="col-1 ">
-            <button mat-fab (click)="this.hideDropDown()" class="">
-                <img [src]="UserImageUrl" alt="A" class="logo ">
-            </button>
+            <button mat-fab [mat-menu-trigger-for]="userMenu">
+                <!-- <img [src]="UserImageUrl" alt="A" class="logo "> -->
+                <mat-icon>more_vert</mat-icon>
 
-            <div class="DropDown " color="primary" [hidden]="hiddenDropDown">
-                <mat-list-item>
-                    <button mat-button (click)="Logout()">Logout</button>
-                </mat-list-item>
-            </div>
+            </button>
+            <mat-menu #userMenu="matMenu">
+                <button mat-menu-item disabled>User image</button>
+                <mat-divider></mat-divider>
+                <button mat-menu-item (click)="Logout()">Logout</button>
+            </mat-menu>
+
         </div>
     </div>
 </div>

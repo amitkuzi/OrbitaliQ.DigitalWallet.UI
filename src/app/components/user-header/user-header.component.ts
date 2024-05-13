@@ -7,6 +7,9 @@ import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatMenuModule } from '@angular/material/menu'; // Add this import statement
+import { MatIconModule } from '@angular/material/icon';
+
 
 @Component({
   selector: 'app-user-header',
@@ -15,7 +18,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     CommonModule,
     MatSidenavModule,
     MatListModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule ,
+    MatMenuModule  
   ],
   templateUrl: './user-header.component.html',
   styleUrl: './user-header.component.css'
