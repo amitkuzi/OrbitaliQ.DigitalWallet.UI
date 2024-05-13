@@ -36,6 +36,7 @@ import { Configuration } from './Services/server-api';
     MatSidenavModule,
     MatButtonModule,
     UserHeaderComponent,
+
     CommonModule
   ]
 })

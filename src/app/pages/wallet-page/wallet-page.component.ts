@@ -9,7 +9,7 @@ import { AddNewCardDialogComponent } from '../../components/add-new-card-dialog/
     standalone: true,
     templateUrl: './wallet-page.component.html',
     styleUrl: './wallet-page.component.css',
-    imports: [NavigationBarComponent, PmContainerComponent,AddNewCardDialogComponent]
+    imports: [NavigationBarComponent, PmContainerComponent]
 })
 export class WalletPageComponent {
     constructor(private dialog: MatDialog) {}

@@ -1,0 +1,15 @@
+<h1 mat-dialog-title color="primary">Creadit card Detils </h1>
+
+<mat-dialog-content [formGroup]="CardDetailFrom">
+    <form formGroupName="CardDetailFrom">
+        <mat-form-field>
+            <input matInput placeholder="Card Number" formControlName="cardNumberCtrl" [(ngModel)]="cardNumber"
+                required>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button color="primary" (click)="closeDialog()">Cancel</button>
+    <button mat-button color="primary" (click)="saveItem()">Save</button>
+</mat-dialog-actions>
