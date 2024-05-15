@@ -36,9 +36,9 @@ import { Configuration } from './Services/server-api';
     MatSidenavModule,
     MatButtonModule,
     UserHeaderComponent,
-
     CommonModule
   ]
+  
 })
 export class AppComponent implements OnInit {
   title = `OrbitaliQ.DigitalWallet.UI ${environment.production ? 'Production' : 'Development'}`;
