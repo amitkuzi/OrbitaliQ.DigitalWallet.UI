@@ -1,4 +1,4 @@
-<div class="main-content ">
+<div *ngIf="!NewCardStete" class="main-content ">
     <app-pm-container> </app-pm-container>
 </div>
 <div class=" frame-bottom   ">
@@ -9,4 +9,56 @@
         <app-navigation-bar (onAddEvent)="AddNewCard()" [disableAddButton]="false"></app-navigation-bar>
 
     </div>
+</div>
+<div *ngIf="NewCardStete" class="main-content ">
+
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Adding new Card</mat-card-title>
+            <mat-card-subtitle>Creadit card Detils</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content [formGroup]="cardNumberCtrlGroup">
+            <div class="side-by-side ">
+                <mat-form-field class="full-width">
+                    <mat-label>Card Number</mat-label>
+                    <input id="cc-number" type="tel" autocomplete="cc-number" ccNumber matInput
+                        placeholder="Card Number" formControlName="cardNumberCtrl" [(ngModel)]="cardNumber" required>
+                </mat-form-field>
+            </div>
+            <div class="side-by-side ">
+                <mat-form-field class="half-width ">
+                    <mat-label>Expiration Date</mat-label>
+                    <input id="cc-exp-date" type="tel" autocomplete="cc-exp" ccExp matInput
+                        placeholder="Expiration Date MM/YY" formControlName="expirationDateCtrl"
+                        [(ngModel)]="cardExpDate" required>
+                </mat-form-field>
+
+                <mat-form-field class=" half-width  ">
+                    <mat-label>CCV Number</mat-label>
+                    <input id="cc-cvc" type="tel" autocomplete="off" ccCvc matInput placeholder="CVV Number"
+                        formControlName="ccvCtrl" [(ngModel)]="cardCvv" required>
+                </mat-form-field>
+            </div>
+            <div class="side-by-side">
+                <mat-form-field class="large-width">
+                    <mat-label>Card Holder</mat-label>
+                    <input type="tel" autocomplete="name" matInput placeholder="Card Holder"
+                        formControlName="cardHolderCtrl" [(ngModel)]="cardHolderName" required>
+                </mat-form-field>
+
+                <mat-form-field class="small-width">
+                    <mat-label>Card Holder ZIP</mat-label>
+                    <input type="tel" autocomplete="zip" matInput placeholder="Card Holder ZIP code"
+                        formControlName="cardHolderZIP" [(ngModel)]="cardHolderZIP" required>
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button color="primary" (click)="CancleAddCard()">Cancel</button>
+            <button mat-button color="primary" [disabled]="cardNumberCtrlGroup.invalid"
+                (click)="AddNewCard()">Save</button>
+        </mat-card-actions>
+    </mat-card>
+
+
 </div>
