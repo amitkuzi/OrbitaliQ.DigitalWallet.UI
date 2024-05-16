@@ -9,6 +9,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CreditCardValidators } from 'angular-cc-library';
+import { ExpirationDateMaskDirective } from '../../components/expiration-date-mask.directive';
+import { DashboardService } from '../../Services/server-api';
+import { InitServiceConfig } from '../../app.component';
 
 @Component({
     selector: 'app-wallet-page',
@@ -25,6 +28,7 @@ import { CreditCardValidators } from 'angular-cc-library';
     MatInputModule,
     MatButtonModule,
     ReactiveFormsModule,
+    ExpirationDateMaskDirective,
     FormsModule
   ]
 })
@@ -38,8 +42,12 @@ cardCvv: string = '';
 cardHolderName:  string = '';
 cardHolderZIP:  string = '';
 
+  constructor(
+    private formBuilder: FormBuilder,
+    private dashboard: DashboardService) {
+    InitServiceConfig(dashboard.configuration);
+  }
  
-  constructor(private formBuilder: FormBuilder,) { }
   
   ngOnInit(): void {
     this.cardNumberCtrlGroup = this.formBuilder.group({
@@ -60,7 +68,20 @@ cardHolderZIP:  string = '';
  this.NewCardStete = false;
 }
 
-  saveItem(): void {
-    console.log('save :', this.cardNumber);
+  saveNewCard(): void {
+    console.log('save :', this.cardNumberCtrlGroup.value);
+
+    this.NewCardStete = false;
+    
   }
 }
+
+
+// {
+//     "cardNumberCtrl": "5454545454545454",
+//     "expirationDateCtrl": "12/34",
+//     "ccvCtrl": "654",
+//     "cardHolderCtrl": "asdafa wd aw",
+//     "cardHolderZIP": "5826129",
+//     "saveDetilsCtrl": "true"
+// }
