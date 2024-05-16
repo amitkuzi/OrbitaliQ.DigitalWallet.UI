@@ -23,7 +23,6 @@ import { InitServiceConfig } from '../../app.component';
     PmContainerComponent,
     CommonModule,
     MatCardModule,
-    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
