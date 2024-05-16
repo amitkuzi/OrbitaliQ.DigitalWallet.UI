@@ -11,7 +11,7 @@
  */
 
 
-export interface PaymentMethod { 
+export interface CreaditCardPaymentMethod { 
     userId?: string | null;
     cardNumber?: string | null;
     cvv?: string | null;
@@ -21,8 +21,5 @@ export interface PaymentMethod {
     cardHolderName?: string | null;
     cardHolderID?: string | null;
     cardHolderData?: string | null;
-    id?: string | null;
-    deactiev?: boolean;
-    deactievDate?: string;
 }
 

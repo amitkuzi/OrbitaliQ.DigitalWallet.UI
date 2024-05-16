@@ -1,4 +1,5 @@
 export * from './chargeDto';
+export * from './creaditCardPaymentMethod';
 export * from './dWTransaction';
 export * from './digitalWalletRegistrationDto';
 export * from './fileUploadResponseResource';

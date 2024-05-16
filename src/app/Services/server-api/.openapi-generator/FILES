@@ -12,6 +12,7 @@ encoder.ts
 git_push.sh
 index.ts
 model/chargeDto.ts
+model/creaditCardPaymentMethod.ts
 model/dWTransaction.ts
 model/digitalWalletRegistrationDto.ts
 model/fileUploadResponseResource.ts
