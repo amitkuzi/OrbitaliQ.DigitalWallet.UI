@@ -557,7 +557,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/PaymentMethod"
+                    "$ref": "#/components/schemas/CreaditCardPaymentMethod"
                   }
                 }
               },
@@ -565,7 +565,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/PaymentMethod"
+                    "$ref": "#/components/schemas/CreaditCardPaymentMethod"
                   }
                 }
               },
@@ -573,7 +573,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/PaymentMethod"
+                    "$ref": "#/components/schemas/CreaditCardPaymentMethod"
                   }
                 }
               }

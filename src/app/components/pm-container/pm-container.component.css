@@ -5,3 +5,11 @@
     justify-content: center;
     margin: 5px;
 }
+
+ .carousel-control-prev-icon{
+    background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23000" viewBox="0 0 8 8"><path d="M5.25 0l-4 4 4 4z"/></svg>');
+ }
+
+ .carousel-control-next-icon{
+    background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23000" viewBox="0 0 8 8"><path d="M2.75 0l4 4-4 4z"/></svg>');
+ }

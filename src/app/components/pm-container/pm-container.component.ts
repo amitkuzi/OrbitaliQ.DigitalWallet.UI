@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { GlobalGetUserId, InitServiceConfig } from '../../app.component';
 import { DashboardService, PaymentMethod } from '../../Services/server-api';
 import { BehaviorSubject, max, min } from 'rxjs';
@@ -20,6 +20,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 })
 export class PmContainerComponent implements OnInit {
   index: number = 0;
+  @Input() currentCardId: any;
 
   prev() {
     this.index = Math.max(this.index - 1, 0);
@@ -33,17 +34,16 @@ export class PmContainerComponent implements OnInit {
 
   PaymentMethods$: BehaviorSubject<Array<PaymentMethod>> = new BehaviorSubject<Array<PaymentMethod>>([]);
   current$: BehaviorSubject<PaymentMethod | undefined> = new BehaviorSubject<PaymentMethod | undefined>(undefined);
+  
 
   constructor(private dashboard: DashboardService) {
     InitServiceConfig(dashboard.configuration);
-
-
-
   }
 
   ngOnInit(): void {
     console.log('3 PmContainerComponent ngOnInit');
 
+    this.current$.subscribe((value) => {  this.currentCardId = value?.id ?? undefined;});
     this.dashboard.applicationDashboardPaymentMethodsUserIdGet(GlobalGetUserId()).subscribe((data) => {
       console.log('33 PmContainerComponent applicationDashboardPaymentMethodsUserIdGet data: ', data);
 

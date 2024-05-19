@@ -1,5 +1,5 @@
 <div *ngIf="!NewCardStete" class="main-content ">
-    <app-pm-container> </app-pm-container>
+    <app-pm-container [currentCardId]="currentCard"> </app-pm-container>
 </div>
 <div class=" frame-bottom   ">
     <div class="  container ">
@@ -11,8 +11,13 @@
     </div>
 </div>
 <div *ngIf="NewCardStete" class="main-content ">
+    <app-add-credit-card (onAddEvent)="addCardEvent($event)"></app-add-credit-card>
 
-    <mat-card>
+</div>
+
+
+
+<!-- <mat-card>
         <mat-card-header>
             <mat-card-title>Adding new Card</mat-card-title>
             <mat-card-subtitle>Creadit card Detils</mat-card-subtitle>
@@ -59,7 +64,4 @@
             <button mat-button color="primary" [disabled]="cardNumberCtrlGroup.invalid"
                 (click)="saveNewCard()">Save</button>
         </mat-card-actions>
-    </mat-card>
-
-
-</div>
+    </mat-card> -->

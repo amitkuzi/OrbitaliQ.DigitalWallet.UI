@@ -1,9 +1,13 @@
 <mat-card>
+
     <mat-card-header>
         <mat-card-title>Adding new Card</mat-card-title>
         <mat-card-subtitle>Creadit card Detils</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content [formGroup]="cardNumberCtrlGroup">
+
+
+
         <div class="side-by-side ">
             <mat-form-field class="full-width">
                 <mat-label>Card Number</mat-label>
@@ -45,5 +49,7 @@
         <button mat-button color="primary" [disabled]="cardNumberCtrlGroup.invalid"
             (click)="saveNewCard()">Save</button>
     </mat-card-actions>
+    <div *ngIf="waiting" class="spinner ">
+        <mat-spinner></mat-spinner>
+    </div>
 </mat-card>
-

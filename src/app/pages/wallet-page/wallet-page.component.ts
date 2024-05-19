@@ -12,51 +12,41 @@ import { CreditCardValidators } from 'angular-cc-library';
 import { ExpirationDateMaskDirective } from '../../components/expiration-date-mask.directive';
 import { DashboardService } from '../../Services/server-api';
 import { InitServiceConfig } from '../../app.component';
+import { AddCreditCardComponent } from "../../components/add-credit-card/add-credit-card.component";
 
 @Component({
     selector: 'app-wallet-page',
     standalone: true,
     templateUrl: './wallet-page.component.html',
     styleUrl: './wallet-page.component.css',
-  imports: [
-    NavigationBarComponent,
-    PmContainerComponent,
-    CommonModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-    ExpirationDateMaskDirective,
-    FormsModule
-  ]
+    imports: [
+        NavigationBarComponent,
+        PmContainerComponent,
+        CommonModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        ReactiveFormsModule,
+        ExpirationDateMaskDirective,
+        FormsModule,
+        AddCreditCardComponent
+    ]
 })
 export class WalletPageComponent implements OnInit {
- NewCardStete: boolean = true;
-cardDetailFrom: FormGroup<any> = new FormGroup({});
-cardNumberCtrlGroup: any;
-cardNumber: string = '';
-cardExpDate:  string = '';
-cardCvv: string = '';
-cardHolderName:  string = '';
-cardHolderZIP:  string = '';
+
+ NewCardStete: boolean = false;
+  currentCard: string | undefined;
+ 
 
   constructor(
     private formBuilder: FormBuilder,
     private dashboard: DashboardService) {
     InitServiceConfig(dashboard.configuration);
   }
- 
   
   ngOnInit(): void {
-    this.cardNumberCtrlGroup = this.formBuilder.group({
-      cardNumberCtrl: [, [CreditCardValidators.validateCCNumber]],
-      expirationDateCtrl: ['', [CreditCardValidators.validateExpDate]],
-      ccvCtrl: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]],
-      cardHolderCtrl: ['', [Validators.required]],
-      cardHolderZIP: ['', [Validators.required]],
-      saveDetilsCtrl: ['true']
-    });
+ 
   }
 
   AddNewCard() {
@@ -67,20 +57,16 @@ cardHolderZIP:  string = '';
  this.NewCardStete = false;
 }
 
-  saveNewCard(): void {
-    console.log('save :', this.cardNumberCtrlGroup.value);
-
+ 
+  addCardEvent($event: string|undefined) {
+    console.log('addCardEvent', $event);
+    if ($event !== undefined) {
+      this.currentCard = $event;
+    }
+      
     this.NewCardStete = false;
-    
+    console.log('addCardEvent this.currentCard', this.currentCard);
   }
+  
 }
-
-
-// {
-//     "cardNumberCtrl": "5454545454545454",
-//     "expirationDateCtrl": "12/34",
-//     "ccvCtrl": "654",
-//     "cardHolderCtrl": "asdafa wd aw",
-//     "cardHolderZIP": "5826129",
-//     "saveDetilsCtrl": "true"
-// }
+ 

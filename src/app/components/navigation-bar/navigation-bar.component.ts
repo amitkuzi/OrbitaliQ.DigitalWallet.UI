@@ -17,7 +17,7 @@ import { Router, RouterModule } from '@angular/router';
   templateUrl: './navigation-bar.component.html',
   styleUrl: './navigation-bar.component.css'
 })
-export class NavigationBarComponent {
+export class NavigationBarComponent  {
   constructor(private router: Router) { }
   @Output() public onAddEvent: EventEmitter<void> = new EventEmitter<void>();
   
