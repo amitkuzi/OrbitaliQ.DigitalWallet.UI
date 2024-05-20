@@ -82,6 +82,10 @@ export function InitServiceConfig(conf: Configuration): Configuration {
   return conf
 }
 
-export function primaryColor(): string { return '#ffd740' };
-export function secColor(): string { return '#673ab7' };
-export function primaryBGColor(): string {  return '#BFE9FE00'; }
+export function primaryColor(): string {
+  console.log('primaryColor', getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim());
+ return getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim() || '#ffd740';
+};
+export function secColor(): string { return getComputedStyle(document.documentElement).getPropertyValue('--sec-color').trim() || '#673ab7'; };
+
+export function primaryBGColor():  string {  return getComputedStyle(document.documentElement).getPropertyValue('--bg-color').trim() || '#BFE9FE';};

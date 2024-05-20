@@ -1,7 +1,8 @@
-<div *ngIf="!topupState" class="main-content ">
-    <div class="  container    ">
-      <div><span class="  ">Balance : </span> <span class="  ">{{this.Balance$ | async | currency }}</span></div>  
-        <qrcode [qrdata]="OTFTag" [width]="256" [errorCorrectionLevel]="'M'" [allowEmptyString]="true"
+<div *ngIf="!topupState" class="main-content   ">
+    <div class="  container balance ">
+        <div><span class="  ">Balance : </span> <span class="  ">{{this.Balance$ | async | currency
+                }}</span></div>
+        <qrcode [qrdata]="(OTFTag$ | async) || ''" [width]="512" [errorCorrectionLevel]="'M'" [allowEmptyString]="true"
             [colorDark]="darkColor()" [colorLight]="lightColor()"></qrcode>
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationBarComponent } from "../../components/navigation-bar/navigation-bar.component";
 import { CommonModule } from '@angular/common';
 import { DashboardService, WalletService } from '../../Services/server-api';
@@ -17,16 +17,17 @@ import { BehaviorSubject, interval } from 'rxjs';
       NavigationBarComponent
     ]
 })
-export class WalletPageComponent implements OnInit {
+export class WalletPageComponent implements OnInit , OnDestroy {
   subscription: any;
   darkColor(): string {
+    console.log('darkColor',secColor() );
  return secColor() ;
 }
   lightColor(): string {
- return primaryBGColor() ;
+ return '#D5ECF702' ;
   }
   Balance$ : BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  OTFTag : string = '';
+  OTFTag$ :  BehaviorSubject<string> = new BehaviorSubject<string>('');
   StartTopup() {
 
     this.topupState = !this.topupState;
@@ -37,10 +38,13 @@ export class WalletPageComponent implements OnInit {
     InitServiceConfig(wallet.configuration);
     InitServiceConfig(dashboard.configuration);
   }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
   
   ngOnInit(): void {
 
-    this.subscription = interval(1000).subscribe((val) => { this.refreshData(); });
+    this.subscription = interval(10000).subscribe((val) => { this.refreshData(); });
     this.refreshData();
 
   }
@@ -52,7 +56,7 @@ export class WalletPageComponent implements OnInit {
 
     this.dashboard.applicationDashboardOTFTagUserIdGet(GlobalGetUserId()).subscribe((data) => {
       console.log('WalletPageComponent data: ', data);
-      this.OTFTag = data ;
+      this.OTFTag$.next(data) ;
     });
   }
 

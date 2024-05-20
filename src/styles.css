@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 /* (e.g. src/styles.scss) to this file. */
 
-:host {
+html {
   --primary-color: #ffd740; /* Default value */
   --sec-color: #673ab7; /* Default value */
   --bg-color : linear-gradient(to right, #BFE9FE, #D5ECF7);
