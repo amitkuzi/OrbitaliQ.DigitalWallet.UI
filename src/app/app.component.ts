@@ -81,3 +81,7 @@ export function InitServiceConfig(conf: Configuration): Configuration {
   conf.basePath = environment.apiUrl;
   return conf
 }
+
+export function primaryColor(): string { return '#ffd740' };
+export function secColor(): string { return '#673ab7' };
+export function primaryBGColor(): string {  return '#BFE9FE00'; }

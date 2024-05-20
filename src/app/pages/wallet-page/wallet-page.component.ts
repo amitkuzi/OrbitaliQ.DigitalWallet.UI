@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationBarComponent } from "../../components/navigation-bar/navigation-bar.component";
-import { CommonModule, NgIf } from '@angular/common';
-import { DashboardService } from '../../Services/server-api';
-import { GlobalGetUserId, InitServiceConfig } from '../../app.component';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { CommonModule } from '@angular/common';
+import { DashboardService, WalletService } from '../../Services/server-api';
+import { GlobalGetUserId, InitServiceConfig, primaryBGColor, secColor } from '../../app.component';
+import { QRCodeModule } from 'angularx-qrcode';
+import { BehaviorSubject, interval } from 'rxjs';
 
 @Component({
     selector: 'app-wallet-page',
@@ -11,26 +12,47 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
     templateUrl: './wallet-page.component.html',
     styleUrl: './wallet-page.component.css',
   imports: [
-      CommonModule,
+    CommonModule,
+    QRCodeModule,
       NavigationBarComponent
     ]
 })
 export class WalletPageComponent implements OnInit {
-  OTFTag$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  subscription: any;
+  darkColor(): string {
+ return secColor() ;
+}
+  lightColor(): string {
+ return primaryBGColor() ;
+  }
+  Balance$ : BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  OTFTag : string = '';
   StartTopup() {
 
     this.topupState = !this.topupState;
       console.log('StartTopup' , this.topupState );
 }
  topupState: boolean = false;
- constructor(private dashboard: DashboardService) {
+ constructor(private dashboard: DashboardService, private wallet: WalletService) {
+    InitServiceConfig(wallet.configuration);
     InitServiceConfig(dashboard.configuration);
   }
   
   ngOnInit(): void {
+
+    this.subscription = interval(1000).subscribe((val) => { this.refreshData(); });
+    this.refreshData();
+
+  }
+  refreshData() {
+       this.wallet.applicationWalletRefundablesUserIdGet(GlobalGetUserId()).subscribe((data) => {
+      console.log('WalletPageComponent data: ', data);
+      this.Balance$.next(data.totleBalance ?? 0);
+     });
+
     this.dashboard.applicationDashboardOTFTagUserIdGet(GlobalGetUserId()).subscribe((data) => {
       console.log('WalletPageComponent data: ', data);
-      this.OTFTag$.next(data);
+      this.OTFTag = data ;
     });
   }
 

@@ -1,6 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 /* (e.g. src/styles.scss) to this file. */
 
+:host {
+  --primary-color: #ffd740; /* Default value */
+  --sec-color: #673ab7; /* Default value */
+  --bg-color : linear-gradient(to right, #BFE9FE, #D5ECF7);
+}
+
+
+
+.primary-color {
+  background-color: var(--primary-color ); /* Fallback color */
+}
+
+.sec-color {
+  background-color: var(--sec-color ); /* Fallback color */
+}
+
+.primary-bg {
+  background-color: var(--primary-bg-color, linear-gradient(to right, #BFE9FE, #D5ECF7)); /* Fallback color */
+}
+
+ 
+
 html,
 body {
     height: 100%;

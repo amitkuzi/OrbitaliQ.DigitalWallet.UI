@@ -1,14 +1,15 @@
 <div *ngIf="!topupState" class="main-content ">
-    <div class="  container   ">
-        <span class=" ">{{this.OTFTag$ | async}}</span>
-
+    <div class="  container    ">
+      <div><span class="  ">Balance : </span> <span class="  ">{{this.Balance$ | async | currency }}</span></div>  
+        <qrcode [qrdata]="OTFTag" [width]="256" [errorCorrectionLevel]="'M'" [allowEmptyString]="true"
+            [colorDark]="darkColor()" [colorLight]="lightColor()"></qrcode>
     </div>
 </div>
 <div class=" frame-bottom   ">
     <div class="  container ">
-        <h1>wallet </h1>
+        <h1 class="  ">wallet </h1>
     </div>
-    <div class="  ">
+    <div class=" ">
         <app-navigation-bar (onAddEvent)="StartTopup()" [disableAddButton]="topupState"></app-navigation-bar>
 
     </div>
