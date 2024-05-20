@@ -1,13 +1,17 @@
-
-<div class="main-content ">
-    <p>payment-page works!</p>
+<div *ngIf="!NewCardStete" class="main-content ">
+    <app-pm-container [currentCardId]="currentCard" (currentPaymentMethod$)="currentPMChange($event)">
+    </app-pm-container>
 </div>
 <div class=" frame-bottom   ">
     <div class="  container ">
 
     </div>
     <div class="  ">
-        <app-navigation-bar [disableAddButton]="false"></app-navigation-bar>
+        <app-navigation-bar (onAddEvent)="AddNewCard()" [disableAddButton]="NewCardStete"></app-navigation-bar>
 
     </div>
+</div>
+<div *ngIf="NewCardStete" class="main-content ">
+    <app-add-credit-card (onAddEvent)="addCardEvent($event)"></app-add-credit-card>
+
 </div>
