@@ -5,16 +5,18 @@ import { DashboardService, WalletService } from '../../Services/server-api';
 import { GlobalGetUserId, InitServiceConfig, primaryBGColor, secColor } from '../../app.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { BehaviorSubject, interval } from 'rxjs';
+import { TopupStepperComponent } from "../../components/topup-stepper/topup-stepper.component";
 
 @Component({
     selector: 'app-wallet-page',
     standalone: true,
     templateUrl: './wallet-page.component.html',
     styleUrl: './wallet-page.component.css',
-  imports: [
-    CommonModule,
-    QRCodeModule,
-      NavigationBarComponent
+    imports: [
+        CommonModule,
+        QRCodeModule,
+        NavigationBarComponent,
+        TopupStepperComponent
     ]
 })
 export class WalletPageComponent implements OnInit , OnDestroy {
@@ -33,7 +35,7 @@ export class WalletPageComponent implements OnInit , OnDestroy {
     this.topupState = !this.topupState;
       console.log('StartTopup' , this.topupState );
 }
- topupState: boolean = false;
+ topupState: boolean = true;
  constructor(private dashboard: DashboardService, private wallet: WalletService) {
     InitServiceConfig(wallet.configuration);
     InitServiceConfig(dashboard.configuration);

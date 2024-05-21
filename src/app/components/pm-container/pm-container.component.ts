@@ -37,11 +37,9 @@ export class PmContainerComponent implements OnInit {
       this.currentPaymentMethod$.emit(value);
     });
     this.dashboard.applicationDashboardPaymentMethodsUserIdGet(GlobalGetUserId()).subscribe((data) => {
-      console.log('33 PmContainerComponent applicationDashboardPaymentMethodsUserIdGet data: ', data);
 
       this.PaymentMethods$.next(data);
       this.current$.next(this.PaymentMethods$.value[this.index]);
-      data.forEach((pm) => { console.log('333 PmContainerComponent applicationDashboardPaymentMethodsUserIdGet pm: ', pm); });
     });
   }
 

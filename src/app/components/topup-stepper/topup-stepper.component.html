@@ -1,0 +1,35 @@
+<mat-stepper #stepper>
+    <mat-step [stepControl]="selectAmountFormGroup">
+        <ng-template matStepLabel>Select top-up amount {{topupAmount | currency}}</ng-template>
+
+        <mat-radio-group class="container row" [(ngModel)]="selectedAmount" (change)="onAmountChange($event.value)">
+            <mat-radio-button *ngFor="let amount of topupAmounts" [value]="amount.value">{{ amount.value | currency
+                }}</mat-radio-button>
+            <mat-radio-button [value]="'custom'"> Enter custom amount <mat-form-field
+                    *ngIf="selectedAmount === 'custom'" appearance="fill">
+
+                    <mat-label>Enter custom amount</mat-label>
+                    <input type="number" matInput [(ngModel)]="customAmountValue"
+                        (ngModelChange)="onAmountChange($event)">
+                </mat-form-field>
+            </mat-radio-button>
+        </mat-radio-group>
+        <button [disabled]="topupAmount <= 0" mat-button matStepperNext>Next</button>
+    </mat-step>
+
+    <mat-step [stepControl]="selectPaymentFormGroup">
+        <ng-template matStepLabel>Select payment method </ng-template>
+
+        <mat-radio-group class="container row" [(ngModel)]="selectedPaymentMethods"
+            (change)="onPaymentMethodChange($event.value)">
+            <mat-radio-button *ngFor="let mp of avilblePaymentMethods" [value]="mp">{{mp.cardNumber }} {{mp.cardExpire
+                }} {{mp.cardHolderName}}</mat-radio-button>
+            <mat-radio-button [value]="{ id: 'new', name: 'new', type: 'new', userId: 'new' }"> Enter custom amount
+                <app-add-credit-card (onAddEvent)="addCardEvent($event)"></app-add-credit-card>
+            </mat-radio-button>
+        </mat-radio-group>
+        <button mat-button matStepperPrevious>Previous</button>
+        <button [disabled]="selectedPaymentMethods === undefined" mat-button matStepperNext>Next</button>
+    </mat-step>
+
+</mat-stepper>
