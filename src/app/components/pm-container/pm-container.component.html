@@ -1,9 +1,10 @@
 <div class="  p-5 container  ">
     <div class=" align-items-center ">
 
-        <div class="  p-5 card-container ">
+        <div class="  p-5 card-container   ">
             <app-pm-item [pmItem]="current$ | async"></app-pm-item>
-           
+            <button mat-fab class=" mat-button disabled" (click)="removeCurrent()"
+                disabled><mat-icon>delete</mat-icon></button>
         </div>
 
 

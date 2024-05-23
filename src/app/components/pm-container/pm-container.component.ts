@@ -19,6 +19,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     PmItemComponent]
 })
 export class PmContainerComponent implements OnInit {
+
   index: number = 0;
   @Input() currentCardId: any;
   PaymentMethods$: BehaviorSubject<Array<PaymentMethod>> = new BehaviorSubject<Array<PaymentMethod>>([]);
@@ -36,13 +37,16 @@ export class PmContainerComponent implements OnInit {
       this.currentCardId = value?.id ?? undefined;
       this.currentPaymentMethod$.emit(value);
     });
-    this.dashboard.applicationDashboardPaymentMethodsUserIdGet(GlobalGetUserId()).subscribe((data) => {
-
-      this.PaymentMethods$.next(data);
-      this.current$.next(this.PaymentMethods$.value[this.index]);
-    });
+    this.refresh();
   }
 
+    refresh() {
+      this.dashboard.applicationDashboardPaymentMethodsUserIdGet(GlobalGetUserId()).subscribe((data) => {
+
+        this.PaymentMethods$.next(data);
+        this.current$.next(this.PaymentMethods$.value[this.index]);
+      });
+    }
   prev() {
     this.index = Math.max(this.index - 1, 0);
     this.current$.next(this.PaymentMethods$.value[this.index] ?? undefined);
@@ -52,5 +56,12 @@ export class PmContainerComponent implements OnInit {
     this.index = Math.min(this.index + 1, this.PaymentMethods$.value?.length - 1);
     this.current$.next(this.PaymentMethods$.value[this.index] ?? undefined);
   }
+
+  removeCurrent() {
+     
+    // remove this.dashboard.applicationDashboardPaymentMethodIdDelete(GlobalGetUserId(), this.current$.value?.id ?? '').subscribe(() => {
+    this.refresh();
+  }
+
 
 }

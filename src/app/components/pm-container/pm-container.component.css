@@ -13,3 +13,21 @@
  .carousel-control-next-icon{
     background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="%23000" viewBox="0 0 8 8"><path d="M2.75 0l4 4-4 4z"/></svg>');
  }
+
+ button.mat-button {
+    background-color: #ffd740;
+    color: black;
+    border-radius: 50%;
+    border: 0 none;
+    padding: 2px 5px;
+    min-width: 4cap;
+    min-height: 4cap;
+    left : 70%;
+    top: 60%;
+    position: absolute;
+
+}
+button.disabled {
+      background-color: #aaaaaa5e;
+ 
+}
