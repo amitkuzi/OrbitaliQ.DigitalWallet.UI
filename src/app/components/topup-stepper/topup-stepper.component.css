@@ -1,0 +1,9 @@
+.full-width-radio {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.full-width-radio .mat-radio-label-content {
+ width: -webkit-fill-available;
+}

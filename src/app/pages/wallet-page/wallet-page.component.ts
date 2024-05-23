@@ -35,7 +35,7 @@ export class WalletPageComponent implements OnInit , OnDestroy {
     this.topupState = !this.topupState;
       console.log('StartTopup' , this.topupState );
 }
- topupState: boolean = true;
+  topupState: boolean = false;
  constructor(private dashboard: DashboardService, private wallet: WalletService) {
     InitServiceConfig(wallet.configuration);
     InitServiceConfig(dashboard.configuration);
