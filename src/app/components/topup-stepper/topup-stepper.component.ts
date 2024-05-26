@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {MatStepperModule} from '@angular/material/stepper';
-import { CreaditCardPaymentMethod, DashboardService, FixedAmount, PaymentMethod, SettingService } from '../../Services/server-api';
+import {MatStepper, MatStepperModule} from '@angular/material/stepper';
+import { DashboardService, FixedAmount, PaymentMethod, SettingService } from '../../Services/server-api';
 import { GlobalGetUserId, InitServiceConfig } from '../../app.component';
-import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { CommonModule } from '@angular/common';
 import { AddCreditCardComponent } from "../add-credit-card/add-credit-card.component";
-import {MatExpansionModule} from '@angular/material/expansion';
+import {MatExpansionModule, MatExpansionPanel} from '@angular/material/expansion';
+import { BehaviorSubject } from 'rxjs';
+import { PmItemComponent } from "../pm-item/pm-item.component";
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-topup-stepper',
@@ -18,66 +21,105 @@ import {MatExpansionModule} from '@angular/material/expansion';
     styleUrl: './topup-stepper.component.css',
     imports: [
         CommonModule,
-        MatButtonModule,
-      MatRadioModule,
+      MatButtonModule,
+        MatSnackBarModule,
+        MatRadioModule,
         MatExpansionModule,
         MatStepperModule,
         FormsModule,
         ReactiveFormsModule,
         MatFormFieldModule,
         MatInputModule,
-        AddCreditCardComponent
+        AddCreditCardComponent,
+        PmItemComponent
     ]
 })
 export class TopupStepperComponent implements OnInit{
-customAmount: any ;
-customAmountValue: any;
-selectAmountFormGroup: any= this.formBuilder.group({ customAmount: '' });
-selectPaymentFormGroup: any= this.formBuilder.group({ customAmount: '' });
+ 
+   @Output() topupResult:  EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  
+  customAmount: any ;
+  customAmountValue: any;
+  selectedAmount: any;
+  selectAmountFormGroup: any = this.formBuilder.group({ customAmount: '' });
+  
+  @ViewChild('selectCardSection') selectCardSection!: MatExpansionPanel;
+  @ViewChild('newCardSection') newCardSection!: MatExpansionPanel;
+  @ViewChild('stepper') stepper!: MatStepper;
+
   topupAmounts: FixedAmount[] = [];
-selectedAmount: any;
   topupAmount: number = 0;
+  selectPaymentFormGroup: any= this.formBuilder.group({ pmSelectCtrl: '' });
   avilblePaymentMethods: PaymentMethod[] = [];
   selectedPaymentMethod: PaymentMethod | undefined = undefined;
   readonly newPaymentMethid: PaymentMethod = { id: 'new',  cardType:'new', userId: 'new' };
-  
-  constructor(private formBuilder: FormBuilder, private setting: SettingService,private dashboard: DashboardService) {
+
+  confirmTopupFormGroup: any= this.formBuilder.group({ executeCtrl: '' });
+
+
+  constructor(private formBuilder: FormBuilder, private setting: SettingService,private dashboard: DashboardService,private snackBar: MatSnackBar) {
     InitServiceConfig(setting.configuration);
-     InitServiceConfig(dashboard.configuration);
+    InitServiceConfig(dashboard.configuration);
+   
     }
   
   ngOnInit(): void {
     this.setting.applicationSettingTopupAmountsGet().subscribe((data) => {
-      console.log('TopupStepperComponent data: ', data);
+      console.log('TopupStepperComponent topupAmounts: ', data);
       this.topupAmounts = data;
     });
     
-     this.dashboard.applicationDashboardPaymentMethodsUserIdGet(GlobalGetUserId()).subscribe((data) => {
-       this.avilblePaymentMethods = data;
-       this.selectedPaymentMethod = this.avilblePaymentMethods[0] ?? this.newPaymentMethid;
+    this.dashboard.applicationDashboardPaymentMethodsUserIdGet(GlobalGetUserId()).subscribe((data) => {
+       console.log('TopupStepperComponent avilblePaymentMethods: ', data);
+      this.avilblePaymentMethods = data;
+       if (this.avilblePaymentMethods.length === 0) {
+         this.selectedPaymentMethod = undefined;
+         this.newCardExpOpen();
+       }
+
+       this.selectedPaymentMethod = this.selectedPaymentMethod ?? this.avilblePaymentMethods[0] ?? undefined;
+         this.selectCardExpOpen();
+
     });
   }
 
   newCardExpOpen($event: void) {
-  this.selectedPaymentMethod = this.newPaymentMethid;
+    console.log('  newCardExpOpen  this.selectedPaymentMethod: ',  this.selectedPaymentMethod);
+    if (this.selectCardSection.expanded ) this.selectCardSection.expanded = false;
+    if (!this.newCardSection.expanded ) this.newCardSection.expanded = true;
+    console.log('  newCardExpOpen  end  ',  this.selectCardSection, this.newCardSection);
 }
   selectCardExpOpen($event: void) {
-    if (this.avilblePaymentMethods == null || this.avilblePaymentMethods.length === 0) { 
-      this.selectedPaymentMethod = this.newPaymentMethid;
+    console.log('  selectCardExpOpen  this.avilblePaymentMethods: ',  this.avilblePaymentMethods);
+ 
+    if (!this.avilblePaymentMethods ) { 
+      this.newCardExpOpen();
+      console.log('  selectCardExpOpen  end  ',  this.selectCardSection, this.newCardSection);
       return;
     }
-    if (this.selectedPaymentMethod === undefined || this.selectedPaymentMethod == null) {
-      this.selectedPaymentMethod = this.avilblePaymentMethods[0];
-    }
+
+  
+    this.selectedPaymentMethod = this.selectedPaymentMethod  ?? this.avilblePaymentMethods[0];
+    if (!this.selectCardSection.expanded )  this.selectCardSection.expanded =true ;
+    if (this.newCardSection.expanded ) this.newCardSection.expanded = false;
+    console.log('  selectCardExpOpen  end  ',  this.selectCardSection, this.newCardSection);
+    
   }
+ 
   
   addCardEvent($event: PaymentMethod | undefined) {
-  console.log('TopupStepperComponent addCardEvent: ', $event);
-     this.dashboard.applicationDashboardPaymentMethodsUserIdGet(GlobalGetUserId()).subscribe((data) => {
-       this.avilblePaymentMethods = data;
-       this.selectedPaymentMethod = this.avilblePaymentMethods.find((x) => x.id === $event) ?? this.newPaymentMethid;
-       console.log('TopupStepperComponent addCardEvent selectedPaymentMethod: ', this.selectedPaymentMethod);
-    });
+    if ($event === undefined || $event == null) {
+      console.log('TopupStepperComponent cancle addCardEvent: ', $event);
+      this.selectCardExpOpen();
+      return;
+    }
+
+    console.log('TopupStepperComponent addCardEvent: ', $event);
+    this.dashboard.applicationDashboardPaymentMethodsUserIdGet(GlobalGetUserId()).subscribe((data) => {
+      this.avilblePaymentMethods = data;
+      this.selectedPaymentMethod = $event;
+      this.stepper.next();      });
 }
 
 
@@ -89,13 +131,22 @@ selectedAmount: any;
  
     onPaymentMethodChange(arg0: PaymentMethod) {
       this.selectedPaymentMethod = arg0;
-      
   }
- 
 
-ondebgClos($event: void) {
-  console.log('TopupStepperComponent ondebgClos: ', $event);
-  console.log('TopupStepperComponent selectedPaymentMethod: ', this.selectedPaymentMethod);
+  exeTopup() {
+    this.topupResult.emit(true);
+            this.snackBar.open('topup approved', 'close', {
+        panelClass: ['error-snackbar'],
+        duration: 2000,
+      });
 }
-
+cancelTopup() {
+  this.stepper.reset();
+  this.topupResult.emit(false);
+        this.snackBar.open('topup cancle', 'close', {
+        panelClass: ['error-snackbar'],
+        duration: 2000,
+      });
+}
+ 
 }

@@ -17,7 +17,7 @@
 </div>
 <div *ngIf="topupState" class="main-content ">
     <div class="  container ">
-        <app-topup-stepper></app-topup-stepper>
+        <app-topup-stepper (topupResult)="onTopupResult($event)"></app-topup-stepper>
     </div>
 
 </div>

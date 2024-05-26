@@ -5,11 +5,11 @@
         <mat-radio-group class="container row" [(ngModel)]="selectedAmount" (change)="onAmountChange($event.value)">
             <mat-radio-button *ngFor="let amount of topupAmounts" [value]="amount.value">{{ amount.value | currency
                 }}</mat-radio-button>
-            <mat-radio-button [value]="'custom'"> Enter custom amount <mat-form-field
+            <mat-radio-button [value]="'custom'" > Enter custom amount <mat-form-field
                     *ngIf="selectedAmount === 'custom'" appearance="fill">
 
                     <mat-label>Enter custom amount</mat-label>
-                    <input type="number" matInput [(ngModel)]="customAmountValue"
+                    <input type="number" matInput [(ngModel)]="customAmountValue" 
                         (ngModelChange)="onAmountChange($event)">
                 </mat-form-field>
             </mat-radio-button>
@@ -21,46 +21,61 @@
         <ng-template matStepLabel>Select payment method </ng-template>
 
 
+        <mat-accordion>
+            <mat-expansion-panel hideToggle #selectCardSection (opened)="selectCardExpOpen($event)"
+                (closed)="newCardExpOpen($event)">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Select payment method
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
 
+                <mat-radio-group class="container row " [(ngModel)]="selectedPaymentMethod"  formControlName="pmSelectCtrl"
+                    (change)="onPaymentMethodChange($event.value)">
+                    <div *ngIf="!avilblePaymentMethods || avilblePaymentMethods.length == 0">
+                        <div class="mat-radio-label-content">No payment methods available</div></div>   
+                    <mat-radio-button class=" " *ngFor="let mp of avilblePaymentMethods" [value]="mp">{{mp.cardNumber }}
+                        {{mp.cardExpire
+                        }} {{mp.cardHolderName}}</mat-radio-button>
+                </mat-radio-group>
 
+            </mat-expansion-panel>
+            <mat-expansion-panel #newCardSection hideToggle (opened)="newCardExpOpen($event)"
+                (closed)="selectCardExpOpen($event)">
+                <mat-expansion-panel-header>
+                    <mat-panel-description>
+                        <div class=" mat-radio-label-content">Add new card</div>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
 
-        <mat-radio-group class="container row" [(ngModel)]="selectedPaymentMethod"
-            (change)="onPaymentMethodChange($event.value)">
-            <mat-accordion multi>
-                <mat-expansion-panel hideToggle [expanded]="selectedPaymentMethod?.id !== 'new'"
-                    (opened)="selectCardExpOpen($event)">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            Select payment method
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <div class="container row">
-                        <mat-radio-button class=" " *ngFor="let mp of avilblePaymentMethods"
-                            [value]="mp">{{mp.cardNumber }}
-                            {{mp.cardExpire
-                            }} {{mp.cardHolderName}}</mat-radio-button>
-                    </div>
-                </mat-expansion-panel>
-                <mat-expansion-panel hideToggle [expanded]="selectedPaymentMethod === newPaymentMethid"
-                    [disabled]="true" (opened)="newCardExpOpen($event)">
-                    <mat-expansion-panel-header>
-                        <mat-panel-description>
-                            <mat-radio-button class="  full-width-radio" [value]="newPaymentMethid">
-                                <div class=" mat-radio-label-content">Add new card</div>
-                            </mat-radio-button>
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
+                <app-add-credit-card (onAddEvent)="addCardEvent($event)"></app-add-credit-card>
+            </mat-expansion-panel>
+        </mat-accordion>
 
-                    <app-add-credit-card (onAddEvent)="addCardEvent($event)"></app-add-credit-card>
-                </mat-expansion-panel>
-            </mat-accordion>
-
-        </mat-radio-group>
 
 
         <button mat-button matStepperPrevious>Previous</button>
         <button [disabled]="selectedPaymentMethod == null || selectedPaymentMethod.id == 'new'  " mat-button
             matStepperNext>Next</button>
+    </mat-step>
+
+    <mat-step [stepControl]="confirmTopupFormGroup">
+        <ng-template matStepLabel>Confirm topup </ng-template>
+
+        <div class="container  align-items-center ">
+            <div>
+                <h2 class="my-4">Top-up amount: {{selectedAmount | currency}}</h2>
+            </div>
+            <div><app-pm-item [pmItem]="selectedPaymentMethod "></app-pm-item></div>
+
+            <div>
+                <h4 class="my-4">pls confirm topup payment action </h4>
+            </div>
+
+        </div>
+        <button class="mx-4" mat-button matStepperPrevious >Previous</button>
+        <button class="ml-8" mat-raised-button (click)="cancelTopup()">Cancle topup</button>
+        <button class="ml-2" mat-raised-button (click)="exeTopup()" formControlName="executeCtrl"> Execute topup</button>
     </mat-step>
 
 </mat-stepper>

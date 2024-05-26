@@ -20,9 +20,10 @@ import { TopupStepperComponent } from "../../components/topup-stepper/topup-step
     ]
 })
 export class WalletPageComponent implements OnInit , OnDestroy {
+
   subscription: any;
   darkColor(): string {
-    console.log('darkColor',secColor() );
+    //console.log('darkColor',secColor() );
  return secColor() ;
 }
   lightColor(): string {
@@ -52,15 +53,23 @@ export class WalletPageComponent implements OnInit , OnDestroy {
   }
   refreshData() {
        this.wallet.applicationWalletRefundablesUserIdGet(GlobalGetUserId()).subscribe((data) => {
-      console.log('WalletPageComponent data: ', data);
+    //  console.log('WalletPageComponent data: ', data);
       this.Balance$.next(data.totleBalance ?? 0);
      });
 
     this.dashboard.applicationDashboardOTFTagUserIdGet(GlobalGetUserId()).subscribe((data) => {
-      console.log('WalletPageComponent data: ', data);
+     // console.log('WalletPageComponent data: ', data);
       this.OTFTag$.next(data) ;
     });
   }
+
+onTopupResult($event: boolean) {
+  console.log('onTopupResult', $event);
+  this.topupState = false;
+  if ($event) {
+    this.refreshData();
+  }
+}
 
 }
  

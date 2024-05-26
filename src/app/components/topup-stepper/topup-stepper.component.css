@@ -1,3 +1,10 @@
+mat-stepper {
+  width: 100%;
+    box-shadow: -1px 0px 2px 0px #0000003f;
+    border-radius: 32px ;
+}
+
+
 .full-width-radio {
   width: 100%;
   display: flex;
@@ -6,4 +13,29 @@
 
 .full-width-radio .mat-radio-label-content {
  width: -webkit-fill-available;
+}
+
+ .container {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   height: 100%;
+   width: 100%;
+ }
+
+
+ .large-width {
+    width: calc(60% - 6px); /* Make Card Holder input larger */
+    margin: 12px;
+}
+
+.small-width {
+    width: calc(40% - 6px); /* Make Card Holder ZIP input smaller */
+    margin: 12px;
+}
+
+.error-snackbar {
+  background-color: #2196f3;
+  color: #88077d;
 }
