@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { CreditCardValidators } from 'angular-cc-library';
-import { CreaditCardPaymentMethod, DashboardService } from '../../Services/server-api';
+import { CreaditCardPaymentMethod, DashboardService, PaymentMethod } from '../../Services/server-api';
 import { GlobalGetUserId, InitServiceConfig } from '../../app.component';
 import { ExpirationDateMaskDirective } from '../expiration-date-mask.directive';
 
@@ -32,7 +32,7 @@ import { ExpirationDateMaskDirective } from '../expiration-date-mask.directive';
 })
 export class AddCreditCardComponent implements OnInit{
   
-  @Output() public onAddEvent: EventEmitter<string|undefined> = new EventEmitter<string|undefined>();
+  @Output() public onAddEvent: EventEmitter<PaymentMethod|undefined> = new EventEmitter<PaymentMethod|undefined>();
   waiting : boolean = false;
 cardDetailFrom: FormGroup<any> = new FormGroup({});
 cardNumberCtrlGroup: any;
@@ -81,7 +81,7 @@ this.waiting = true;
   
     this.dashboard.applicationDashboardPaymentMethodsUserIdPut(GlobalGetUserId(), pmItem).subscribe((res) => {
       console.log('add new card res :', res);
-      this.onAddEvent.emit(res.id ?? undefined);
+      this.onAddEvent.emit(res);
       this.waiting = false;
     }, (err) => {
       console.log('add new card err :', err);

@@ -71,7 +71,7 @@ selectedAmount: any;
     }
   }
   
-  addCardEvent($event: string | undefined) {
+  addCardEvent($event: PaymentMethod | undefined) {
   console.log('TopupStepperComponent addCardEvent: ', $event);
      this.dashboard.applicationDashboardPaymentMethodsUserIdGet(GlobalGetUserId()).subscribe((data) => {
        this.avilblePaymentMethods = data;

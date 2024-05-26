@@ -59,10 +59,10 @@ export class PaymentPageComponent implements OnInit {
 }
 
  
-  addCardEvent($event: string|undefined) {
+  addCardEvent($event: PaymentMethod|undefined) {
     console.log('addCardEvent', $event);
     if ($event !== undefined) {
-      this.currentCard = $event;
+      this.currentCard = $event?.id ?? undefined;
     }
       
     this.NewCardStete = false;
