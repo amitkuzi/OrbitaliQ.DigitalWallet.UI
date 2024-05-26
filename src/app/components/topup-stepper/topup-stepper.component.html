@@ -5,11 +5,11 @@
         <mat-radio-group class="container row" [(ngModel)]="selectedAmount" (change)="onAmountChange($event.value)">
             <mat-radio-button *ngFor="let amount of topupAmounts" [value]="amount.value">{{ amount.value | currency
                 }}</mat-radio-button>
-            <mat-radio-button [value]="'custom'" > Enter custom amount <mat-form-field
+            <mat-radio-button [value]="'custom'"> Enter custom amount <mat-form-field
                     *ngIf="selectedAmount === 'custom'" appearance="fill">
 
                     <mat-label>Enter custom amount</mat-label>
-                    <input type="number" matInput [(ngModel)]="customAmountValue" 
+                    <input type="number" matInput [(ngModel)]="customAmountValue"
                         (ngModelChange)="onAmountChange($event)">
                 </mat-form-field>
             </mat-radio-button>
@@ -30,10 +30,11 @@
                     </mat-panel-title>
                 </mat-expansion-panel-header>
 
-                <mat-radio-group class="container row " [(ngModel)]="selectedPaymentMethod"  formControlName="pmSelectCtrl"
+                <mat-radio-group class="container row " [(ngModel)]="selectedPaymentMethod"
                     (change)="onPaymentMethodChange($event.value)">
                     <div *ngIf="!avilblePaymentMethods || avilblePaymentMethods.length == 0">
-                        <div class="mat-radio-label-content">No payment methods available</div></div>   
+                        <div class="mat-radio-label-content">No payment methods available</div>
+                    </div>
                     <mat-radio-button class=" " *ngFor="let mp of avilblePaymentMethods" [value]="mp">{{mp.cardNumber }}
                         {{mp.cardExpire
                         }} {{mp.cardHolderName}}</mat-radio-button>
@@ -55,8 +56,7 @@
 
 
         <button mat-button matStepperPrevious>Previous</button>
-        <button [disabled]="selectedPaymentMethod == null || selectedPaymentMethod.id == 'new'  " mat-button
-            matStepperNext>Next</button>
+        <button [disabled]="!selectedPaymentMethod " mat-button matStepperNext>Next</button>
     </mat-step>
 
     <mat-step [stepControl]="confirmTopupFormGroup">
@@ -64,7 +64,7 @@
 
         <div class="container  align-items-center ">
             <div>
-                <h2 class="my-4">Top-up amount: {{selectedAmount | currency}}</h2>
+                <h2 class="my-4">Top-up amount: {{topupAmount | currency}}</h2>
             </div>
             <div><app-pm-item [pmItem]="selectedPaymentMethod "></app-pm-item></div>
 
@@ -73,9 +73,11 @@
             </div>
 
         </div>
-        <button class="mx-4" mat-button matStepperPrevious >Previous</button>
+        <button class="mx-4" mat-button matStepperPrevious>Previous</button>
         <button class="ml-8" mat-raised-button (click)="cancelTopup()">Cancle topup</button>
-        <button class="ml-2" mat-raised-button (click)="exeTopup()" formControlName="executeCtrl"> Execute topup</button>
+        <button class="ml-2" mat-raised-button (click)="exeTopup()"
+            [disabled]="!selectedPaymentMethod && !selectedAmount "> Execute
+            topup</button>
     </mat-step>
 
 </mat-stepper>

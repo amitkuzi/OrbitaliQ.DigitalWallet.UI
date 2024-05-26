@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatStepper, MatStepperModule} from '@angular/material/stepper';
-import { DashboardService, FixedAmount, PaymentMethod, SettingService } from '../../Services/server-api';
+import { DashboardService, FixedAmount, PaymentMethod, SettingService, TopUpDto, WalletService } from '../../Services/server-api';
 import { GlobalGetUserId, InitServiceConfig } from '../../app.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { CommonModule } from '@angular/common';
@@ -39,7 +39,6 @@ export class TopupStepperComponent implements OnInit{
    @Output() topupResult:  EventEmitter<boolean> = new EventEmitter<boolean>();
 
   
-  customAmount: any ;
   customAmountValue: any;
   selectedAmount: any;
   selectAmountFormGroup: any = this.formBuilder.group({ customAmount: '' });
@@ -58,9 +57,16 @@ export class TopupStepperComponent implements OnInit{
   confirmTopupFormGroup: any= this.formBuilder.group({ executeCtrl: '' });
 
 
-  constructor(private formBuilder: FormBuilder, private setting: SettingService,private dashboard: DashboardService,private snackBar: MatSnackBar) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private setting: SettingService,
+    private wallet: WalletService,
+    private dashboard: DashboardService,
+    private snackBar: MatSnackBar)
+  {
     InitServiceConfig(setting.configuration);
     InitServiceConfig(dashboard.configuration);
+    InitServiceConfig(wallet.configuration);
    
     }
   
@@ -124,8 +130,6 @@ export class TopupStepperComponent implements OnInit{
 
 
  onAmountChange(arg0: any) {
-  console.log('TopupStepperComponent onAmountChange: ', arg0);
-   console.log('TopupStepperComponent selectedAmount: ', this.selectedAmount);
    this.topupAmount = this.selectedAmount === 'custom' ? this.customAmountValue ?? 0 : this.selectedAmount;
   }
  
@@ -134,11 +138,35 @@ export class TopupStepperComponent implements OnInit{
   }
 
   exeTopup() {
-    this.topupResult.emit(true);
-            this.snackBar.open('topup approved', 'close', {
+
+    if (typeof this.selectedPaymentMethod !== 'undefined')
+    {
+      const topUpDto : TopUpDto = {
+        amount: this.topupAmount,
+        currency: 'USD',
+        description: 'topup',
+        paymentMethodId: this.selectedPaymentMethod.id ,
+      };
+
+      this.wallet.applicationWalletTopupUserIdPost(GlobalGetUserId(),topUpDto).subscribe((data) => { 
+        console.log('TopupStepperComponent exeTopup: ', data);
+        this.stepper.reset();
+        this.topupResult.emit(true);
+        this.snackBar.open('topup approved', 'close', {
+          panelClass: ['error-snackbar'],
+          duration: 2000,
+        });
+      });
+      return;
+    }
+
+      console.warn('TopupStepperComponent exeTopup error : ', this.selectedPaymentMethod);
+     this.snackBar.open('topup unknown error start new ', 'close', {
         panelClass: ['error-snackbar'],
         duration: 2000,
-      });
+     });
+    
+    this.stepper.reset();
 }
 cancelTopup() {
   this.stepper.reset();
