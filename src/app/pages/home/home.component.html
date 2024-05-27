@@ -4,10 +4,17 @@
     </div>
     <div class=" frame-bottom   ">
         <div class="  container ">
-            <app-trans-list></app-trans-list>
+            <mat-expansion-panel class="flat-panel" expanded>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Last Activities
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <app-trans-list Title=""></app-trans-list>
+            </mat-expansion-panel>
         </div>
-        <div class="  ">
-            <app-navigation-bar [disableAddButton]="true"></app-navigation-bar>
+        <div class=" ">
+            <app-navigation-bar [disableAddButton]=" true"></app-navigation-bar>
 
         </div>
     </div>

@@ -1,83 +1,92 @@
-<mat-stepper #stepper>
-    <mat-step [stepControl]="selectAmountFormGroup">
-        <ng-template matStepLabel>Select top-up amount {{topupAmount | currency}}</ng-template>
+<div class="container ">
 
-        <mat-radio-group class="container row" [(ngModel)]="selectedAmount" (change)="onAmountChange($event.value)">
-            <mat-radio-button *ngFor="let amount of topupAmounts" [value]="amount.value">{{ amount.value | currency
-                }}</mat-radio-button>
-            <mat-radio-button [value]="'custom'"> Enter custom amount <mat-form-field
-                    *ngIf="selectedAmount === 'custom'" appearance="fill">
+    <mat-stepper #stepper>
+        <mat-step [stepControl]="selectAmountFormGroup">
+            <ng-template matStepLabel>Top-up amount {{topupAmount | currency}}</ng-template>
 
-                    <mat-label>Enter custom amount</mat-label>
-                    <input type="number" matInput [(ngModel)]="customAmountValue"
-                        (ngModelChange)="onAmountChange($event)">
-                </mat-form-field>
-            </mat-radio-button>
-        </mat-radio-group>
-        <button [disabled]="topupAmount <= 0" mat-button matStepperNext>Next</button>
-    </mat-step>
+            <mat-radio-group class="container row" [(ngModel)]="selectedAmount" (change)="onAmountChange($event.value)">
+                <mat-radio-button *ngFor="let amount of topupAmounts" [value]="amount.value">{{ amount.value | currency
+                    }}</mat-radio-button>
+                <mat-radio-button [value]="'custom'"> Enter custom amount <mat-form-field
+                        *ngIf="selectedAmount === 'custom'" appearance="fill">
 
-    <mat-step [stepControl]="selectPaymentFormGroup">
-        <ng-template matStepLabel>Select payment method </ng-template>
+                        <mat-label>Enter custom amount</mat-label>
+                        <input type="number" matInput [(ngModel)]="customAmountValue"
+                            (ngModelChange)="onAmountChange($event)">
+                    </mat-form-field>
+                </mat-radio-button>
+            </mat-radio-group>
+            <button class="ml-8" mat-button (click)="cancelTopup()">Cancle</button>
+            <button [disabled]="topupAmount <= 0" mat-button matStepperNext>Next</button>
+        </mat-step>
 
-
-        <mat-accordion>
-            <mat-expansion-panel hideToggle #selectCardSection (opened)="selectCardExpOpen($event)"
-                (closed)="newCardExpOpen($event)">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Select payment method
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-
-                <mat-radio-group class="container row " [(ngModel)]="selectedPaymentMethod"
-                    (change)="onPaymentMethodChange($event.value)">
-                    <div *ngIf="!avilblePaymentMethods || avilblePaymentMethods.length == 0">
-                        <div class="mat-radio-label-content">No payment methods available</div>
-                    </div>
-                    <mat-radio-button class=" " *ngFor="let mp of avilblePaymentMethods" [value]="mp">{{mp.cardNumber }}
-                        {{mp.cardExpire
-                        }} {{mp.cardHolderName}}</mat-radio-button>
-                </mat-radio-group>
-
-            </mat-expansion-panel>
-            <mat-expansion-panel #newCardSection hideToggle (opened)="newCardExpOpen($event)"
-                (closed)="selectCardExpOpen($event)">
-                <mat-expansion-panel-header>
-                    <mat-panel-description>
-                        <div class=" mat-radio-label-content">Add new card</div>
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-
-                <app-add-credit-card (onAddEvent)="addCardEvent($event)"></app-add-credit-card>
-            </mat-expansion-panel>
-        </mat-accordion>
+        <mat-step [stepControl]="selectPaymentFormGroup">
+            <ng-template matStepLabel>Card Selection</ng-template>
 
 
+            <mat-accordion>
+                <mat-expansion-panel hideToggle #selectCardSection (opened)="selectCardExpOpen($event)"
+                    (closed)="newCardExpOpen($event)">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Select Card
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
 
-        <button mat-button matStepperPrevious>Previous</button>
-        <button [disabled]="!selectedPaymentMethod " mat-button matStepperNext>Next</button>
-    </mat-step>
+                    <mat-radio-group class="container row " [(ngModel)]="selectedPaymentMethod"
+                        (change)="onPaymentMethodChange($event.value)">
+                        <div *ngIf="!avilblePaymentMethods || avilblePaymentMethods.length == 0">
+                            <div class="mat-radio-label-content">No payment methods available</div>
+                        </div>
+                        <mat-radio-button class=" " *ngFor="let mp of avilblePaymentMethods"
+                            [value]="mp">{{mp.cardNumber }}
+                            {{mp.cardExpire
+                            }} {{mp.cardHolderName}}</mat-radio-button>
+                    </mat-radio-group>
 
-    <mat-step [stepControl]="confirmTopupFormGroup">
-        <ng-template matStepLabel>Confirm topup </ng-template>
+                </mat-expansion-panel>
+                <mat-expansion-panel #newCardSection hideToggle (opened)="newCardExpOpen($event)"
+                    (closed)="selectCardExpOpen($event)">
+                    <mat-expansion-panel-header>
+                        <mat-panel-description>
+                            <div class=" mat-radio-label-content">Add new card</div>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
 
-        <div class="container  align-items-center ">
-            <div>
-                <h2 class="my-4">Top-up amount: {{topupAmount | currency}}</h2>
+                    <app-add-credit-card (onAddEvent)="addCardEvent($event)"></app-add-credit-card>
+                </mat-expansion-panel>
+            </mat-accordion>
+
+
+            <button class="ml-8" mat-button (click)="cancelTopup()">Cancle</button>
+            <button mat-button matStepperPrevious>Previous</button>
+            <button [disabled]="!selectedPaymentMethod " mat-button matStepperNext>Next</button>
+        </mat-step>
+
+        <mat-step [stepControl]="confirmTopupFormGroup">
+            <ng-template matStepLabel>Confirmation</ng-template>
+
+            <div class="container  align-items-center ">
+                <div>
+                    <h2 class="my-4">Top-up amount: {{topupAmount | currency}}</h2>
+                </div>
+                <div><app-pm-item [pmItem]="selectedPaymentMethod "></app-pm-item></div>
+
+                <div>
+                    <h4 class="my-4">pls confirm topup payment action </h4>
+                </div>
+
             </div>
-            <div><app-pm-item [pmItem]="selectedPaymentMethod "></app-pm-item></div>
+            <button class="ml-8" mat-button (click)="cancelTopup()">Cancle</button>
+            <button class="mx-4" mat-button matStepperPrevious>Previous</button>
 
-            <div>
-                <h4 class="my-4">pls confirm topup payment action </h4>
-            </div>
+            <button class="ml-2" mat-raised-button (click)="exeTopup()"
+                [disabled]="!selectedPaymentMethod && !selectedAmount "> Execute
+                topup</button>
+        </mat-step>
 
-        </div>
-        <button class="mx-4" mat-button matStepperPrevious>Previous</button>
-        <button class="ml-8" mat-raised-button (click)="cancelTopup()">Cancle topup</button>
-        <button class="ml-2" mat-raised-button (click)="exeTopup()"
-            [disabled]="!selectedPaymentMethod && !selectedAmount "> Execute
-            topup</button>
-    </mat-step>
-
-</mat-stepper>
+    </mat-stepper>
+    <div *ngIf="waiting" class="spinner ">
+        <mat-spinner></mat-spinner>
+    </div>
+</div>

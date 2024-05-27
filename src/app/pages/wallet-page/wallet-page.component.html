@@ -7,12 +7,8 @@
     </div>
 </div>
 <div class=" frame-bottom   ">
-    <div class="  container ">
-        <h1 class="  ">wallet </h1>
-    </div>
     <div class=" ">
-        <app-navigation-bar (onAddEvent)="StartTopup()" [disableAddButton]="topupState"></app-navigation-bar>
-
+        <app-navigation-bar (onAddEvent)="StartTopup()" [disableAddButton]="topupState" Tooltip="start topup wizard"></app-navigation-bar>
     </div>
 </div>
 <div *ngIf="topupState" class="main-content ">

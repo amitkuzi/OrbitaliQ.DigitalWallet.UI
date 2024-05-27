@@ -4,6 +4,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -12,6 +13,7 @@ import { Router, RouterModule } from '@angular/router';
     MatSidenavModule,
     RouterModule,
     MatListModule,
+    MatTooltipModule,
     MatIconModule,
     MatButtonModule],
   templateUrl: './navigation-bar.component.html',
@@ -20,7 +22,7 @@ import { Router, RouterModule } from '@angular/router';
 export class NavigationBarComponent  {
   constructor(private router: Router) { }
   @Output() public onAddEvent: EventEmitter<void> = new EventEmitter<void>();
-  
+   @Input() Tooltip: string = '';
   @Input() disableAddButton: boolean = false;
   
   AddEvent() {

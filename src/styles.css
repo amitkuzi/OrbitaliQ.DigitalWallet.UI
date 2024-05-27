@@ -215,7 +215,7 @@ div.app-background {
     background: #ffffff;
     box-shadow: -1px 0px 2px 0px #0000003f;
     width: -webkit-fill-available;
-    min-height: 20%;
+    min-height: 10%;
     max-height: 60%;
 }
 

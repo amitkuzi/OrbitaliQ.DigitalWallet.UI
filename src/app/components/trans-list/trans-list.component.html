@@ -1,6 +1,6 @@
 <div class=" ">
-    <header>
-        <span>Last Activities</span>
+    <header *ngIf="Title">
+        <span>{{Title}}</span>
     </header>
     <div *ngIf="(trasactionList$ | async)?.length" #scrollContainer class="scroll-container">
         <div *ngFor="let item of trasactionList$ | async ">

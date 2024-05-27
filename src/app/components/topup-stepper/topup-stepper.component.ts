@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,7 +10,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { CommonModule } from '@angular/common';
 import { AddCreditCardComponent } from "../add-credit-card/add-credit-card.component";
 import {MatExpansionModule, MatExpansionPanel} from '@angular/material/expansion';
-import { BehaviorSubject } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PmItemComponent } from "../pm-item/pm-item.component";
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
@@ -30,14 +30,15 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
         ReactiveFormsModule,
         MatFormFieldModule,
         MatInputModule,
-        AddCreditCardComponent,
+      AddCreditCardComponent,
+        MatProgressSpinnerModule,
         PmItemComponent
     ]
 })
-export class TopupStepperComponent implements OnInit{
+export class TopupStepperComponent implements OnInit  {
  
    @Output() topupResult:  EventEmitter<boolean> = new EventEmitter<boolean>();
-
+ waiting : boolean = false;
   
   customAmountValue: any;
   selectedAmount: any;
@@ -69,24 +70,29 @@ export class TopupStepperComponent implements OnInit{
     InitServiceConfig(wallet.configuration);
    
     }
+ 
   
   ngOnInit(): void {
+    
+    
     this.setting.applicationSettingTopupAmountsGet().subscribe((data) => {
       console.log('TopupStepperComponent topupAmounts: ', data);
       this.topupAmounts = data;
     });
     
     this.dashboard.applicationDashboardPaymentMethodsUserIdGet(GlobalGetUserId()).subscribe((data) => {
-       console.log('TopupStepperComponent avilblePaymentMethods: ', data);
+      console.log('TopupStepperComponent avilblePaymentMethods: ', data);
       this.avilblePaymentMethods = data;
-       if (this.avilblePaymentMethods.length === 0) {
-         this.selectedPaymentMethod = undefined;
-         this.newCardExpOpen();
-       }
+      if (this.avilblePaymentMethods.length === 0) {
+        this.selectedPaymentMethod = undefined;
+        this.selectCardExpOpen();
+        this.newCardExpOpen();
+      }
 
-       this.selectedPaymentMethod = this.selectedPaymentMethod ?? this.avilblePaymentMethods[0] ?? undefined;
-         this.selectCardExpOpen();
-
+      this.selectedPaymentMethod = this.selectedPaymentMethod ?? this.avilblePaymentMethods[0] ?? undefined;
+      this.newCardExpOpen();
+      this.selectCardExpOpen();
+      
     });
   }
 
@@ -147,7 +153,7 @@ export class TopupStepperComponent implements OnInit{
         description: 'topup',
         paymentMethodId: this.selectedPaymentMethod.id ,
       };
-
+      this.waiting = true;
       this.wallet.applicationWalletTopupUserIdPost(GlobalGetUserId(),topUpDto).subscribe((data) => { 
         console.log('TopupStepperComponent exeTopup: ', data);
         this.stepper.reset();
@@ -156,6 +162,7 @@ export class TopupStepperComponent implements OnInit{
           panelClass: ['error-snackbar'],
           duration: 2000,
         });
+        this.waiting = false;
       });
       return;
     }
@@ -167,6 +174,7 @@ export class TopupStepperComponent implements OnInit{
      });
     
     this.stepper.reset();
+    this.waiting = false;
 }
 cancelTopup() {
   this.stepper.reset();
@@ -174,7 +182,8 @@ cancelTopup() {
         this.snackBar.open('topup cancle', 'close', {
         panelClass: ['error-snackbar'],
         duration: 2000,
-      });
+        });
+  this.waiting = false;
 }
  
 }

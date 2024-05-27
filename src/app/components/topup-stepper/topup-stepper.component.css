@@ -39,3 +39,12 @@ mat-stepper {
   background-color: #2196f3;
   color: #88077d;
 }
+
+.spinner {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
