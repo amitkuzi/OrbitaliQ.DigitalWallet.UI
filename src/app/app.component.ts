@@ -88,4 +88,6 @@ export function primaryColor(): string {
 };
 export function secColor(): string { return getComputedStyle(document.documentElement).getPropertyValue('--sec-color').trim() || '#673ab7'; };
 
-export function primaryBGColor():  string {  return getComputedStyle(document.documentElement).getPropertyValue('--bg-color').trim() || '#BFE9FE';};
+export function primaryBGColor(): string { return getComputedStyle(document.documentElement).getPropertyValue('--bg-color').trim() || '#BFE9FE'; };
+
+ 

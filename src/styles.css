@@ -218,6 +218,13 @@ div.app-background {
     min-height: 10%;
     max-height: 60%;
 }
+.scroll-container {
+    height: 300px;
+    overflow-y: auto;
+
+    padding: 10px;
+    width: 100%;
+}
 
 .text-title {
     color: #616161;
@@ -232,4 +239,13 @@ div.app-background {
 
 .spacer {
     flex: 1 1 auto;
+}
+
+.spinner {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }

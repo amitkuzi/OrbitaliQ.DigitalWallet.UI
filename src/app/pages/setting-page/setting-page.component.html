@@ -1,12 +1,78 @@
 <div class="main-content ">
-    <p>setting-page works!</p>
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-card-subtitle>update personal details </mat-card-subtitle>
+            </mat-expansion-panel-header>
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Details: {{user.email}}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content [formGroup]="userDetailForm">
+                    <div class="container row scroll-container">
+                        <mat-form-field>
+                            <mat-label>First Name</mat-label>
+                            <input matInput placeholder="First Name" [(ngModel)]="user.firstName" name="firstName"
+                                autocomplete="given-name" formControlName="firstNameCtrl">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Last Name</mat-label>
+                            <input matInput placeholder="Last Name" [(ngModel)]="user.lastName" name="lastName"
+                                autocomplete="family-name" formControlName="lastNameCtrl">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Phone</mat-label>
+                            <input matInput placeholder="Phone" [(ngModel)]="user.phoneNumber" name="phone"
+                                autocomplete="tel" formControlName="phoneNumberCtrl">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Address</mat-label>
+                            <input matInput placeholder="Address" [(ngModel)]="user.address" name="address"
+                                autocomplete="street-address" formControlName="addressCtrl">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>Birth Date</mat-label>
+                            <input matInput [matDatepicker]="picker" placeholder="Birth Date"
+                                [(ngModel)]="user.birthDate" name="birthDate" autocomplete="bday"
+                                formControlName="birthDateCtrl">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker startView="multi-year" [startAt]="startAt"></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>City</mat-label>
+                            <input matInput placeholder="City" [(ngModel)]="user.city" name="city"
+                                autocomplete="address-level2" formControlName="cityCtrl">
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Country</mat-label>
+                            <input matInput placeholder="Country" [(ngModel)]="user.country" name="country"
+                                autocomplete="country" formControlName="countryCtrl">
+                        </mat-form-field>
+                        <div *ngIf="waiting" class="spinner ">
+                            <mat-spinner></mat-spinner>
+                        </div>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="primary" (click)="updateUser()">Update</button>
+                </mat-card-actions>
+            </mat-card>
+        </mat-expansion-panel>
+
+    </mat-accordion>
+
+
 </div>
 <div class=" frame-bottom   ">
     <div class="  container ">
-
     </div>
     <div class="  ">
         <app-navigation-bar [disableAddButton]="true"></app-navigation-bar>
-
     </div>
 </div>
