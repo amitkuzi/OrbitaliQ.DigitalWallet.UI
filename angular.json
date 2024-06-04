@@ -13,6 +13,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "allowedCommonJsDependencies": [
+              "qrcode"
+            ],
             "outputPath": "dist/orbitali-q.digital-wallet.ui",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -35,8 +38,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1mb",
+                  "maximumError": "1.5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -45,6 +48,27 @@
                 }
               ],
               "outputHashing": "all"
+            },
+            "dev4": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "1mb",
+                  "maximumError": "1.5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all",
+               "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev4.ts"
+                }
+              ]
             },
             "development": {
               "optimization": false,
@@ -68,6 +92,9 @@
             },
             "development": {
               "buildTarget": "OrbitaliQ.DigitalWallet.UI:build:development"
+            },
+            "dev4": {
+              "buildTarget": "OrbitaliQ.DigitalWallet.UI:build:dev4"
             }
           },
           "defaultConfiguration": "development"
@@ -81,6 +108,9 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+             "allowedCommonJsDependencies": [
+              "qrcode"
+            ],
             "polyfills": [
               "zone.js",
               "zone.js/testing"

@@ -5,9 +5,11 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "watch": "ng build --watch --configuration=development",
+    "dev4": "ng build  --configuration=dev4",
     "test": "ng test",
     "lint": "ng lint",
+    "source-map-explorer": "npx source-map-explorer dist/orbitali-q.digital-wallet.ui/browser/main-OGUHKICJ.js",
     "genAPIService": "curl  -# -o src/app/services/server-api/.swagger.json http://localhost:5200/swagger/v1/swagger.json && openapi-generator-cli generate -i src/app/services/server-api/.swagger.json -g typescript-angular -o src/app/services/server-api"
   },
   "private": true,
