@@ -64,7 +64,23 @@
                 </mat-card-actions>
             </mat-card>
         </mat-expansion-panel>
-
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-card-subtitle>Delete user
+                    account: {{user.email}} </mat-card-subtitle>
+            </mat-expansion-panel-header>
+            <mat-card class="warning-card">
+                <mat-card-header>
+                    <mat-card-title>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-actions>
+                    <button mat-stroked-button color=" " class="warning-button " (click)="deleteUser()"> Delete
+                        User
+                        details </button>
+                </mat-card-actions>
+            </mat-card>
+        </mat-expansion-panel>
     </mat-accordion>
 
 

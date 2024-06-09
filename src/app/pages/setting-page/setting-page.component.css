@@ -1,0 +1,7 @@
+.warning-button   {
+    background-color: var(--bs-warning-bg-subtle);
+    color: var(--bs-warning-text-emphasis );
+    border: 1px solid var(--bs-warning );
+    border-radius: 0.25rem;
+    transition: background-color 0.3s;
+}
