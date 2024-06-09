@@ -30,6 +30,9 @@ export class AuthServiceService {
               this.UserImageUrl$.next(result);
             }
           });
+        }, (error) => { 
+          console.error('applicationSettingUserDetailsUserIdGet error : ', error);
+          
         });
         this.Authenticated$.next(this.IsAuthenticated);
       }
@@ -70,20 +73,23 @@ export class AuthServiceService {
       console.log('applicationAuthLoginPost ', result);
       if (!result) {
         console.error('Login fail : Unknown error');
-        success.next(this.IsAuthenticated);
+        success.next(false);
         return;
       }
       if (!result.isSuccess) {
         console.error("Login fail : ", result.failMessage || 'Unknown error');
-        success.next(this.IsAuthenticated);
+        success.next(false);
+        return;
       }
 
       this.UserId = result.userID || '';
       this.Bearer = result.token || '';
       success.next(this.IsAuthenticated);
+      
     }, (error) => {
       console.error("Login error : ", error);
-      success.next(this.IsAuthenticated);
+      success.next(false);
+      return;
     });
     return firstValueFrom(success);
   }

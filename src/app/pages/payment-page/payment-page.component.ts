@@ -35,7 +35,6 @@ import { BehaviorSubject } from 'rxjs';
 export class PaymentPageComponent implements OnInit {
 
     currentPMChange($event: PaymentMethod | undefined) {
-        console.log('currentPMChange', $event);
     this.currentPM$.next($event);
 }
 
@@ -60,13 +59,11 @@ export class PaymentPageComponent implements OnInit {
 
  
   addCardEvent($event: PaymentMethod|undefined) {
-    console.log('addCardEvent', $event);
     if ($event !== undefined) {
       this.currentCard = $event?.id ?? undefined;
     }
       
     this.NewCardStete = false;
-    console.log('addCardEvent this.currentCard', this.currentCard);
   }
   
 }

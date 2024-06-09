@@ -20,23 +20,10 @@ import { TopupStepperComponent } from "../../components/topup-stepper/topup-step
     ]
 })
 export class WalletPageComponent implements OnInit , OnDestroy {
-
+topupState: boolean = false;
   subscription: any;
-  darkColor(): string {
-    //console.log('darkColor',secColor() );
- return secColor() ;
-}
-  lightColor(): string {
- return '#D5ECF702' ;
-  }
-  Balance$ : BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  OTFTag$ :  BehaviorSubject<string> = new BehaviorSubject<string>('');
-  StartTopup() {
-
-    this.topupState = !this.topupState;
-      console.log('StartTopup' , this.topupState );
-}
-  topupState: boolean = false;
+ 
+  
  constructor(private dashboard: DashboardService, private wallet: WalletService) {
     InitServiceConfig(wallet.configuration);
     InitServiceConfig(dashboard.configuration);
@@ -58,11 +45,27 @@ export class WalletPageComponent implements OnInit , OnDestroy {
      });
 
     this.dashboard.applicationDashboardOTFTagUserIdGet(GlobalGetUserId()).subscribe((data) => {
-     // console.log('WalletPageComponent data: ', data);
-      this.OTFTag$.next(data) ;
+      // console.log('WalletPageComponent data: ', data);
+      this.OTFTag$.next(data);
+    }, (error) => { 
+      console.error('WalletPageComponent error: ', error);
+    this.OTFTag$.next('');
     });
   }
+ darkColor(): string {
+    //console.log('darkColor',secColor() );
+ return secColor() ;
+}
+  lightColor(): string {
+ return '#D5ECF702' ;
+  }
+  Balance$ : BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  OTFTag$ :  BehaviorSubject<string> = new BehaviorSubject<string>('');
+  StartTopup() {
 
+    this.topupState = !this.topupState;
+      console.log('StartTopup' , this.topupState );
+}
 onTopupResult($event: boolean) {
   console.log('onTopupResult', $event);
   this.topupState = false;

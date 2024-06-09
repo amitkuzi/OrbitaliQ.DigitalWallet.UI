@@ -3,7 +3,7 @@
         <div><span class="  ">Balance : </span> <span class="  ">{{this.Balance$ | async | currency
                 }}</span></div>
         <qrcode [qrdata]="(OTFTag$ | async) || ''" [width]="512" [errorCorrectionLevel]="'M'" [allowEmptyString]="true"
-            [colorDark]="darkColor()" [colorLight]="lightColor()"></qrcode>
+            [colorDark]="darkColor()" [colorLight]="lightColor()" ></qrcode>
     </div>
 </div>
 <div class=" frame-bottom   ">
