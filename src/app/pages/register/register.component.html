@@ -1,1 +1,56 @@
-<p>register works!</p>
+<div class="main-canvas d-flex flex-column  align-items-center">
+
+    <div>
+        <span class="text-title ">Registrtion </span>
+
+        <div class="container  " [formGroup]="registrationForm">
+
+            <mat-form-field>
+                <mat-icon aria-hidden="false" aria-label="email" fontIcon="email" matSuffix></mat-icon>
+                <mat-label>Email</mat-label>
+                <input matInput type="email" placeholder="Email" formControlName="email">
+                <mat-error *ngIf="email?.hasError('required')">Email is required</mat-error>
+                <mat-error *ngIf="email?.hasError('email')">Please enter a valid email address</mat-error>
+
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-icon aria-hidden="false" aria-label="password" fontIcon="password" matSuffix></mat-icon>
+                <mat-label>Password</mat-label>
+                <input matInput type="password" placeholder="Password" formControlName="password">
+                <mat-error *ngIf="password?.hasError('required')">Password is required</mat-error>
+
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-icon aria-hidden="false" aria-label="password" fontIcon="password" matSuffix></mat-icon>
+                <mat-label>Confirm Password</mat-label>
+                <input matInput type="password" placeholder="Confirm Password" formControlName="confirmPassword">
+                <mat-error *ngIf="confirmPassword?.hasError('required')">Confirm Password is required</mat-error>
+                <mat-error *ngIf="registrationForm.hasError('passwordMismatch')">Passwords do not match</mat-error>
+            </mat-form-field>
+        </div>
+
+
+
+        <div class="mat-col-frame d-flex my-8 ">
+            <button mat-button class=" mat-flat-button mat-primary  " [disabled]="!this.registrationForm.valid"
+                (click)="Register()"> Signe in </button>
+        </div>
+        <div class="mat-col-frame ">
+            <div class="mat-col-frame  ">
+                <mat-divider></mat-divider>
+                <span class="text-title">or</span>
+                <mat-divider></mat-divider>
+            </div>
+        </div>
+        <div class="mat-col-frame mb-3">
+            <img class="img-social" src="../../../assets/Media/logins.png" alt="facebook">
+        </div>
+    </div>
+
+    <div class="m-1  d-flex flex-column  align-items-center">
+
+
+    </div>
+</div>

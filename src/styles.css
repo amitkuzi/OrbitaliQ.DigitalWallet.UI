@@ -194,9 +194,12 @@ div.app-background {
     background-color: #ffda6d !important;
     /* Example blue color */
     color: #ffffff !important;
-
 }
-
+.mat-flat-button.mat-primary:disabled {
+    background-color: #cfb25a !important;
+    /* Example blue color */
+    color: #bdbcbc !important;
+}
 
 .frame-bottom {
     left: 0px;

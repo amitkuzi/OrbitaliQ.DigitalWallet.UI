@@ -1,0 +1,14 @@
+
+mat-form-field {
+    width: calc(100% - 6px);
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px; /* Adjust spacing between fields */
+}
+
+.container  div {
+    width: 75%; /* Subtracting margin and padding */
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px; /* Adjust spacing between fields */
+}

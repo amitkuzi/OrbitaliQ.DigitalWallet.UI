@@ -8,6 +8,7 @@ import { FullUserDto, AuthService, SettingService } from './server-api';
   providedIn: 'root'
 })
 export class AuthServiceService {
+
   public Bearer$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   public Authenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public UserDetails$: BehaviorSubject<FullUserDto | undefined> = new BehaviorSubject<FullUserDto | undefined>(undefined);
@@ -64,6 +65,16 @@ export class AuthServiceService {
     localStorage.removeItem(appGlobals._userIdKey);
     this.Bearer$.next('');
     return Promise.resolve(true);
+  }
+
+  Register(email: string, password: string, confirmPassword: string): Promise<boolean>{
+     const success = new Subject<boolean>();
+    this.authService.applicationAuthRegisterPost({ email: email, password: password }).subscribe((result) => {
+      console.log('applicationAuthRegisterPost ', result);
+      this.Login(email, password).then((res) => { success.next(res); });
+    }, (error) => { console.error("Register error 1 : ", error); success.next(false);});
+    
+    return firstValueFrom(success);
   }
 
   public Login(userName: string, password: string): Promise<boolean> {
