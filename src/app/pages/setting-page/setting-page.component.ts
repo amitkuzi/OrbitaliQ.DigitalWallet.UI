@@ -87,23 +87,29 @@ export class SettingPageComponent implements OnInit {
         });
     }
     deleteUser() {
-        var currentUserId = GlobalGetUserId();
-        this.setting.applicationSettingUserDetailsUserIdDelete(currentUserId).subscribe((data) => {
-            console.log('deleteUser data: ', data);
-            if (currentUserId === data) {
-                this.authService.Logout().then((result) => {
-                    console.log('Logout result: ', result);
-                    this.router.navigate(['/']);
-                });
-            }
-            else {
-                console.warn('deleteUser failed: ', data);
-            }
-        }, (error) => {console.warn('deleteUser failed: ', error);});
 
-        this.authService.Logout().then((result) => {
-            console.log('Logout result: ', result);
-            this.router.navigate(['/']);
-        });
+        const result = window.confirm('Are you sure you want to delete your account?');
+        if (result) {
+            console.log('User clicked OK');
+   
+            var currentUserId = GlobalGetUserId();
+            this.setting.applicationSettingUserDetailsUserIdDelete(currentUserId).subscribe((data) => {
+                console.log('deleteUser data: ', data);
+                if (currentUserId === data) {
+                    this.authService.Logout().then((result) => {
+                        console.log('Logout result: ', result);
+                        this.router.navigate(['/']);
+                    });
+                }
+                else {
+                    console.warn('deleteUser failed: ', data);
+                }
+            }, (error) => { console.warn('deleteUser failed: ', error); });
+
+            this.authService.Logout().then((result) => {
+                console.log('Logout result: ', result);
+                this.router.navigate(['/']);
+            });
+        }
     }
 }
