@@ -53,13 +53,14 @@ export class RegisterComponent implements OnInit{
 
   Register() {
     this.authService.Register(this.email?.value, this.password?.value, this.confirmPassword?.value). then((res) => {
-        console.log("Register: ", res);
+        console.log("Register 2: ", res);
         if (this.authService.IsAuthenticated) { this.router.navigate(['/home'], { replaceUrl: true }); }
-        else { this.snackBar.open(`Register Failed `, 'Close', { duration: 2000 }); }
+        else {
+          this.snackBar.open(`Register Failed: ${res}`, 'Close', { duration: 4000 });
+        }
       }).
       catch((err) => {
-        console.error("Error: ", err);
-         this.snackBar.open(`Register Failed ${err.message}`, 'Close', { duration: 2000 });
+         this.snackBar.open(`Register Failed 2${err.message}`, 'Close', { duration: 4000 });
       });
     
   }

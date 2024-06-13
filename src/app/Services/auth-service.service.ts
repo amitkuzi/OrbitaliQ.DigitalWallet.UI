@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Subject, firstValueFrom } from 'rxjs';
-import { InitServiceConfig, appGlobals } from '../app.component';
+import { GlobalGetUserId, InitServiceConfig, appGlobals } from '../app.component';
 import { environment } from '../../environments/environment';
 import { FullUserDto, AuthService, SettingService } from './server-api';
 
@@ -8,6 +8,7 @@ import { FullUserDto, AuthService, SettingService } from './server-api';
   providedIn: 'root'
 })
 export class AuthServiceService {
+  
 
   public Bearer$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   public Authenticated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -24,9 +25,9 @@ export class AuthServiceService {
     this.Bearer$.next(this.Bearer);
     this.Bearer$.subscribe((value) => {
       if (this.IsAuthenticated) {
-        this.settingService.applicationSettingUserDetailsUserIdGet(this.UserID).subscribe((result) => {
+        this.settingService.applicationSettingUserDetailsUserIdGet(this.UserId).subscribe((result) => {
           this.UserDetails$.next(result);
-          this.authService.applicationAuthUserImageUrlUserIdGet(this.UserID).subscribe((result) => {
+          this.authService.applicationAuthUserImageUrlUserIdGet(this.UserId).subscribe((result) => {
             if (typeof result === 'string') {
               this.UserImageUrl$.next(result);
             }
@@ -48,7 +49,7 @@ export class AuthServiceService {
     return localStorage.getItem(appGlobals._bearerKey) || '';
   }
 
-  public get UserID(): string {
+  public get UserId(): string {
     return localStorage.getItem(appGlobals._userIdKey) || '';
   }
 
@@ -67,12 +68,11 @@ export class AuthServiceService {
     return Promise.resolve(true);
   }
 
-  Register(email: string, password: string, confirmPassword: string): Promise<boolean>{
+  Register(email: string, password: string, confirmPassword: string): Promise<boolean | any>{
      const success = new Subject<boolean>();
     this.authService.applicationAuthRegisterPost({ email: email, password: password }).subscribe((result) => {
-      console.log('applicationAuthRegisterPost ', result);
       this.Login(email, password).then((res) => { success.next(res); });
-    }, (error) => { console.error("Register error 1 : ", error); success.next(false);});
+    }, (ex) => { console.error("Register error 1 : ", ex.error); success.next(ex.error.toString());});
     
     return firstValueFrom(success);
   }
@@ -102,6 +102,26 @@ export class AuthServiceService {
       success.next(false);
       return;
     });
+    return firstValueFrom(success);
+  }
+
+
+  UpdateUser(user: FullUserDto): Promise<FullUserDto>{
+    const res = new Subject<FullUserDto>();
+       this.settingService.applicationSettingUserDetailsPut(user).subscribe((result) => {
+         this.UserDetails$.next(result);
+          res.next( result);
+       });
+    return firstValueFrom(res);
+  }
+
+  deleteUser(): Promise<boolean> { 
+    const success = new Subject<boolean>();
+    console.log('deleteUser start',this.UserId);
+    this.settingService.applicationSettingUserDetailsUserIdDelete(this.UserId).subscribe((data) => {
+                console.log('deleteUser data: ',this.UserId);
+                this.Logout().then((result) => { success.next(result);  }).catch((error) => { success.next(false); });
+            });
     return firstValueFrom(success);
   }
 }

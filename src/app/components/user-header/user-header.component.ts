@@ -38,7 +38,8 @@ export class UserHeaderComponent {
     console.log('LoginComponent constructor called IsAuthenticated: ', this.authService.IsAuthenticated);
     this.authService.UserDetails$.subscribe((user) => {
       console.log('UserHeaderComponent UserHeader: ', user);
-      this.UserHeader$.next(user ? `Welcome ${user.firstName} ${user.lastName}` : 'UserHeader');
+     var header =  user?.firstName && user?.lastName? `Welcome ${user.firstName} ${user.lastName}` : user ? `Welcome ${user.userName}` : 'UserHeader';
+      this.UserHeader$.next(header);
     });
   }
 

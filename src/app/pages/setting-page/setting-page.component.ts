@@ -39,15 +39,14 @@ import { AuthServiceService } from '../../Services/auth-service.service';
         NavigationBarComponent]
 })
 export class SettingPageComponent implements OnInit {
-
     waiting: boolean = false;
-    userDetail$: BehaviorSubject<FullUserDto> = new BehaviorSubject<FullUserDto>({});
+    get userDetail$(): BehaviorSubject<FullUserDto| undefined> { return this.authService.UserDetails$;  } 
+    
     user: FullUserDto = {};
     startAt: Date;
     userDetailForm: FormGroup;
      
-    constructor(private setting: SettingService, private formBuilder: FormBuilder, private authService: AuthServiceService, private router: Router) {
-        InitServiceConfig(setting.configuration);
+    constructor( private formBuilder: FormBuilder, private authService: AuthServiceService, private router: Router) {
         this.userDetailForm = this.formBuilder.group({
             firstNameCtrl: [''],
             lastNameCtrl: [''],
@@ -59,56 +58,33 @@ export class SettingPageComponent implements OnInit {
             countryCtrl: [''],
         });
         this.userDetail$.subscribe((data) => {
-            this.user = data;
+            this.user = data ?? {};
         });
 
         this.startAt = new Date(1990, 0, 1);
     }
+
     ngOnInit(): void {
-        this.setting.applicationSettingUserDetailsUserIdGet(GlobalGetUserId()).subscribe((data) => {
-            console.log('SettingPageComponent data: ', data);
-            if (data.birthDate) {
-                data.birthDate = data.birthDate.split('T')[0];
-                if (data.birthDate === '0001-01-01') {
-                    data.birthDate = null;
-                }
-            }
-            this.userDetail$.next(data);
-        });
+
     }
 
     updateUser() {
         this.waiting = true;
         console.log('updateUser', this.user);
-        this.setting.applicationSettingUserDetailsPut(this.user).subscribe((data) => {
-            console.log('updateUser data: ', data);
-            this.userDetail$.next(data);
+        this.authService.UpdateUser(this.user).then((result) => {
             this.waiting = false;
         });
     }
-    deleteUser() {
 
+    deleteUser() {
         const result = window.confirm('Are you sure you want to delete your account?');
         if (result) {
             console.log('User clicked OK');
-   
-            var currentUserId = GlobalGetUserId();
-            this.setting.applicationSettingUserDetailsUserIdDelete(currentUserId).subscribe((data) => {
-                console.log('deleteUser data: ', data);
-                if (currentUserId === data) {
-                    this.authService.Logout().then((result) => {
-                        console.log('Logout result: ', result);
-                        this.router.navigate(['/']);
-                    });
+            this.authService.deleteUser().then((result) => { 
+                if (result) {
+                    console.log('deleteUser result: ', result);
+                    this.router.navigate(['/']);
                 }
-                else {
-                    console.warn('deleteUser failed: ', data);
-                }
-            }, (error) => { console.warn('deleteUser failed: ', error); });
-
-            this.authService.Logout().then((result) => {
-                console.log('Logout result: ', result);
-                this.router.navigate(['/']);
             });
         }
     }
