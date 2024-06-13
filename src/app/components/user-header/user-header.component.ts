@@ -27,6 +27,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class UserHeaderComponent {
 
+
   hideDropDown() {
     this.hiddenDropDown = !this.hiddenDropDown
     console.log('hiddenDropDown: ', this.hiddenDropDown);
@@ -69,5 +70,11 @@ export class UserHeaderComponent {
   public get UserImageUrl(): string {
     return this.authService.UserImageUrl$.value ?? '';
   }
+
+  About() {
+    this.authService.About().then((result) => {   window.alert(result); });
+  
+}
+
 
 }

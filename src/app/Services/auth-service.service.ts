@@ -8,6 +8,7 @@ import { FullUserDto, AuthService, SettingService } from './server-api';
   providedIn: 'root'
 })
 export class AuthServiceService {
+
   
 
   public Bearer$: BehaviorSubject<string> = new BehaviorSubject<string>('');
@@ -123,6 +124,12 @@ export class AuthServiceService {
                 this.Logout().then((result) => { success.next(result);  }).catch((error) => { success.next(false); });
             });
     return firstValueFrom(success);
+  }
+
+  About(): Promise<string> {
+      const success = new Subject<string>();
+    this.authService.applicationAuthVerGet().subscribe((result) => { window.alert(JSON.stringify(result,null, 2)); });
+     return firstValueFrom(success);
   }
 }
 
