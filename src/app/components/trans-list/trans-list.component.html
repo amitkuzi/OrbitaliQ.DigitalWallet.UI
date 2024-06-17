@@ -7,10 +7,10 @@
             <div>
                 <div class="trasaction-card">
                     <div class="container text-center row  align-items-center">
-                        <div class="col-3  ">
+                        <div class="col-l  col">
                             <mat-icon>lock</mat-icon>
                         </div>
-                        <div class="col-6   container row">
+                        <div class="col-m container col">
                             <div class="row  ">
                                 <span class="prom" *ngIf="item && item.amount && item.amount < 0  ">Shopping</span>
                                 <span class="prom" *ngIf="item && item.amount && item.amount > 0 ">Topup</span>
@@ -19,7 +19,7 @@
                                 <span>{{item.creationDate | date:'M/d/yy h:mm a'}}</span>
                             </div>
                         </div>
-                        <div class="col-3  ">
+                        <div class="col-r  col">
                             <span>{{item.amount| currency}}</span>
                         </div>
                     </div>
