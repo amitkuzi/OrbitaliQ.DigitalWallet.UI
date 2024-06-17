@@ -126,9 +126,9 @@ export class AuthServiceService {
     return firstValueFrom(success);
   }
 
-  About(): Promise<string> {
-      const success = new Subject<string>();
-    this.authService.applicationAuthVerGet().subscribe((result) => { window.alert(JSON.stringify(result,null, 2)); });
+  About(): Promise<any> {
+      const success = new Subject<any>();
+    this.authService.applicationAuthVerGet().subscribe((result) => { success.next(result); });
      return firstValueFrom(success);
   }
 }

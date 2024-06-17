@@ -6,14 +6,14 @@
         <div *ngFor="let item of trasactionList$ | async ">
             <div>
                 <div class="trasaction-card">
-                    <div class="container text-center row p-1 m-2 align-items-center">
+                    <div class="container text-center row  align-items-center">
                         <div class="col-3  ">
                             <mat-icon>lock</mat-icon>
                         </div>
                         <div class="col-6   container row">
                             <div class="row  ">
-                                <h3 *ngIf="item && item.amount && item.amount < 0  ">Shopping</h3>
-                                <h3 *ngIf="item && item.amount && item.amount > 0 ">Topup</h3>
+                                <span class="prom" *ngIf="item && item.amount && item.amount < 0  ">Shopping</span>
+                                <span class="prom" *ngIf="item && item.amount && item.amount > 0 ">Topup</span>
                             </div>
                             <div class="row">
                                 <span>{{item.creationDate | date:'M/d/yy h:mm a'}}</span>

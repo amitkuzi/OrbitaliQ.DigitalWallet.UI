@@ -72,7 +72,17 @@ export class UserHeaderComponent {
   }
 
   About() {
-    this.authService.About().then((result) => {   window.alert(result); });
+    this.authService.About().then((result) => {
+      console.log('About result: ', result);
+      var data = JSON.stringify({
+        "screen.availHeight": screen.availHeight,
+        "screen.availWidth": screen.availWidth,
+        "Server": result,
+
+      }, null, 2);
+      console.log('About called',screen);
+      window.alert(data);
+    });
   
 }
 
